@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>اختبار الضرائب</title>
+<meta name="description" content="اختبار تفاعلي من 3 مستويات (15 سؤالاً لكل مستوى) على الوحدة 1 والوحدة 2.1 من شهادة أخصائي ضرائب في دولة قطر، مع شرح الإجابات ودليل مراجعة.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="اختبار الضرائب · شهادة أخصائي ضرائب في دولة قطر">
+<meta property="og:description" content="3 مستويات × 15 سؤالاً، أسئلة تتغير في كل محاولة، مع الشرح ودليل المراجعة.">
+<meta name="theme-color" content="#8A1538">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238A1538'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='Tahoma,Arial'%3E%25%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: an exam booklet; one reading column (≈860px), a home screen with the study guide and three level cards, one question per screen with a numbered answer sheet, then a marked review */
+:root{
+  --bg:#F5F3F1; --surface:#FFFFFF; --sunken:#EEEAE6; --ink:#211A1D; --muted:#625860; --line:#E0D8D3;
+  --accent:#8A1538; --accent-ink:#FFFFFF; --accent-soft:#F4E6EB; --gold:#A8854A; --gold-soft:#F6EEDF;
+  --ok:#1E6E4C; --ok-soft:#E3F1EA; --bad:#AE2A22; --bad-soft:#FBE8E5;
+  --f-display:"Noto Kufi Arabic","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --f-body:"Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141113; --surface:#1D181B; --sunken:#272125; --ink:#F2ECEF; --muted:#B8ADB3; --line:#3A3136;
+    --accent:#E07D98; --accent-ink:#1C0A11; --accent-soft:#3A1C27; --gold:#D9B97E; --gold-soft:#33291A;
+    --ok:#66CB9F; --ok-soft:#163327; --bad:#FF8E84; --bad-soft:#3E1A17;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141113; --surface:#1D181B; --sunken:#272125; --ink:#F2ECEF; --muted:#B8ADB3; --line:#3A3136;
+  --accent:#E07D98; --accent-ink:#1C0A11; --accent-soft:#3A1C27; --gold:#D9B97E; --gold-soft:#33291A;
+  --ok:#66CB9F; --ok-soft:#163327; --bad:#FF8E84; --bad-soft:#3E1A17;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.8}
+.page{direction:rtl;text-align:right;max-width:860px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.35;margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.num{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.screen{display:grid;gap:22px}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 18px;cursor:pointer;font-weight:600;font-size:.95rem}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.link{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.85rem;padding:0}
+
+/* home */
+.hero{display:grid;gap:4px}
+.eyebrow{font-size:.8rem;font-weight:600;color:var(--gold)}
+.hero h1{font-size:clamp(1.9rem,5vw,2.6rem);font-weight:700}
+.guide-cta{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:right;background:var(--gold-soft);border:0;border-radius:14px;padding:14px 18px;cursor:pointer;font-family:var(--f-display);font-size:1.1rem;font-weight:600;color:var(--ink)}
+.guide-cta:hover{filter:brightness(.98)}
+.guide-cta .arr{color:var(--gold);font-size:1.3rem;line-height:1}
+.levels{display:grid;gap:10px}
+.lv{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.lv .n{font-family:var(--f-display);font-weight:700;font-size:2rem;line-height:1;color:var(--accent);width:1.1em;text-align:center}
+.lv h2{font-size:1.15rem}
+.lv h2 small{font-family:var(--f-body);font-size:.75rem;font-weight:600;color:var(--gold);background:var(--gold-soft);border-radius:6px;padding:1px 8px;margin-inline-start:10px;vertical-align:middle;white-space:nowrap}
+.lv .act{display:flex;align-items:center;gap:10px}
+.lv .info{display:grid;gap:2px}
+.lv .info p{font-size:.9rem;color:var(--muted);line-height:1.7}
+.lv .st{font-size:.82rem;font-weight:600;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.st.lock{background:var(--sunken);color:var(--muted)}
+.st.done{background:var(--ok-soft);color:var(--ok)}
+.lv.locked{opacity:.65}
+.lv.locked .n{color:var(--muted)}
+@media (max-width:420px){.lv{grid-template-columns:auto 1fr}.lv .act{grid-column:1/-1;justify-content:space-between}}
+.tt{font-size:.74rem;font-weight:700;border-radius:6px;padding:0 8px;white-space:nowrap}
+.tt.calc{background:var(--gold-soft);color:var(--gold)}
+.tt.concept{background:var(--accent-soft);color:var(--accent)}
+.tt.class{background:var(--ok-soft);color:var(--ok)}
+.tt.src{background:var(--sunken);color:var(--muted)}
+
+/* guide */
+.ghead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.ghead h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:9px 14px;cursor:pointer;font-size:.9rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.gtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.gtools input{flex:1 1 220px;min-width:0;font:inherit;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.focus{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:f}
+.focus li{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.focus li::before{counter-increment:f;content:counter(f);grid-row:span 3;font-family:var(--f-display);font-weight:700;font-size:1.7rem;color:var(--accent);line-height:1.1;min-width:1.2em;text-align:center}
+.focus h3{font-size:1.05rem}
+.focus .rule{font-size:.94rem}
+.eg{background:var(--sunken);border-radius:10px;padding:8px 12px;font-size:.9rem;line-height:1.75}
+.eg::before{content:"مثال مبسط: ";font-weight:700;color:var(--gold)}
+.focus .eg{grid-column:2}
+.nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.nums div{background:var(--accent-soft);border-radius:10px;padding:8px 10px;display:grid;gap:2px;align-content:start}
+.nums b{font-family:var(--f-display);font-size:1.15rem;color:var(--accent);line-height:1.3}
+.nums span{font-size:.8rem;line-height:1.5;color:var(--ink)}
+#guide>.seg{justify-self:start}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.term .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.term h3{font-size:1.05rem;color:var(--accent)}
+.term p{font-size:.93rem}
+.gempty{color:var(--muted)}
+
+/* quiz */
+.qhead{display:grid;gap:10px}
+.qhead .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.qhead h2{font-size:1.25rem}
+.qhead h2 small{font-family:var(--f-body);font-size:.75rem;font-weight:600;color:var(--gold);background:var(--gold-soft);border-radius:6px;padding:1px 8px;margin-inline-start:10px;vertical-align:middle;white-space:nowrap}
+.bar{height:8px;background:var(--sunken);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.sheet{display:flex;flex-wrap:wrap;gap:6px}
+.sheet button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:.88rem;font-variant-numeric:tabular-nums}
+.sheet button.ans{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.sheet button.cur{outline:2px solid var(--accent);outline-offset:1px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:16px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.card .meta .qn{font-family:var(--f-display);font-weight:600;color:var(--muted);font-size:.92rem;margin-inline-end:4px}
+.card .stem{font-size:1.08rem;font-weight:500;line-height:1.85}
+.data{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:4px}
+.data td{border-bottom:1px dashed var(--line);padding:4px 2px;vertical-align:top}
+.data td:last-child{text-align:left;font-variant-numeric:tabular-nums;white-space:nowrap;direction:ltr;padding-inline-start:10px}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;text-align:right;border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:12px 14px;cursor:pointer;line-height:1.7}
+.opt:hover{border-color:var(--accent)}
+.opt .l{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);font-family:var(--f-display);font-weight:600;background:var(--surface)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .l{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.nav .hint{font-size:.85rem;color:var(--muted)}
+
+/* results */
+.score{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.ring{grid-row:span 3;width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--sunken) 0)}
+.ring div{width:94px;height:94px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center;line-height:1.15}
+.ring b{font-family:var(--f-display);font-size:1.7rem}
+.ring small{font-size:.78rem;color:var(--muted)}
+.score h2{font-size:1.35rem}
+.verdict{font-size:.86rem;font-weight:700;border-radius:999px;padding:2px 12px;width:max-content;max-width:100%}
+.verdict.pass{background:var(--ok-soft);color:var(--ok)}
+.verdict.fail{background:var(--bad-soft);color:var(--bad)}
+.bytype{display:flex;flex-wrap:wrap;gap:8px}
+.bytype span{font-size:.84rem;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:2px 10px}
+@media (max-width:520px){.score{grid-template-columns:1fr;justify-items:start}.ring{grid-row:auto}}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.filter{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.filter h3{font-size:1.15rem}
+.rv{display:grid;gap:12px}
+.ri{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;gap:10px;border-inline-start:5px solid var(--ok)}
+.ri.wrong{border-inline-start-color:var(--bad)}
+.ri .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ri .qn{font-family:var(--f-display);font-weight:600;font-size:.92rem}
+.ri .mark{font-size:.78rem;font-weight:700;border-radius:999px;padding:0 10px}
+.ri .mark.y{background:var(--ok-soft);color:var(--ok)}
+.ri .mark.n{background:var(--bad-soft);color:var(--bad)}
+.ri .stem{font-weight:500}
+.ans{display:grid;gap:6px}
+.ans div{display:grid;grid-template-columns:auto 1fr;gap:8px;border-radius:10px;padding:6px 10px;font-size:.93rem}
+.ans .yours.bad{background:var(--bad-soft)}
+.ans .right{background:var(--ok-soft)}
+.ans b{font-size:.8rem;white-space:nowrap;padding-top:2px}
+.ans .yours.bad b{color:var(--bad)}
+.ans .right b{color:var(--ok)}
+.ex{font-size:.93rem;line-height:1.85;background:var(--bg);border-radius:10px;padding:10px 12px}
+.ex b.h{color:var(--accent)}
+.ref{font-size:.8rem;color:var(--muted)}
+.ref::before{content:"المرجع: ";font-weight:700;color:var(--gold)}
+.final{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:grid;gap:10px}
+.final table{width:100%;border-collapse:collapse;font-size:.93rem}
+.final td,.final th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right}
+.final th{font-size:.8rem;color:var(--muted);font-weight:600}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="page" dir="rtl" lang="ar">
+
+<!-- HOME -->
+<section class="screen" id="home">
+  <header class="hero">
+    <div class="eyebrow">الوحدة 1 · الوحدة 2.1</div>
+    <h1>اختبار الضرائب</h1>
+  </header>
+  <button class="guide-cta" type="button" id="open-guide"><span>دليل المراجعة</span><span class="arr" aria-hidden="true">←</span></button>
+  <div class="levels" id="levels"></div>
+  <div><button class="link" type="button" id="reset">مسح التقدّم</button></div>
+</section>
+
+<!-- GUIDE -->
+<section class="screen" id="guide" hidden>
+  <div class="ghead">
+    <h1>دليل المراجعة</h1>
+    <button class="btn" type="button" id="g-back">الرجوع</button>
+  </div>
+  <div class="seg" role="group" aria-label="أقسام الدليل">
+    <button type="button" id="tab-focus" aria-pressed="true">أهم العناصر</button>
+    <button type="button" id="tab-terms" aria-pressed="false">المصطلحات</button>
+  </div>
+  <div id="pane-focus"><ol class="focus" id="focus"></ol></div>
+  <div id="pane-terms" hidden>
+    <div class="gtools">
+      <input id="g-q" type="search" placeholder="ابحث عن مصطلح" aria-label="ابحث عن مصطلح" autocomplete="off">
+      <div class="seg" role="group" aria-label="تصفية حسب الوحدة">
+        <button type="button" data-u="all" aria-pressed="true">الكل</button>
+        <button type="button" data-u="M1" aria-pressed="false">الوحدة 1</button>
+        <button type="button" data-u="M2" aria-pressed="false">الوحدة 2.1</button>
+      </div>
+    </div>
+    <div class="terms" id="terms" style="margin-top:14px"></div>
+    <p class="gempty" id="g-empty" hidden>لا توجد نتائج.</p>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="quiz" hidden>
+  <div class="qhead">
+    <div class="row">
+      <h2 id="q-title"></h2>
+      <button class="btn" type="button" id="q-home">الرجوع</button>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="q-bar"></i></div>
+    <div class="sheet" id="q-sheet" role="navigation" aria-label="ورقة الإجابة"></div>
+  </div>
+  <article class="card" aria-live="polite">
+    <div class="meta" id="q-meta"></div>
+    <div class="stem" id="q-stem"></div>
+    <div class="opts" id="q-opts" role="radiogroup"></div>
+  </article>
+  <div class="nav">
+    <div style="display:flex;gap:10px">
+      <button class="btn" type="button" id="q-prev">السابق</button>
+      <button class="btn" type="button" id="q-next">التالي</button>
+    </div>
+    <span class="hint" id="q-hint"></span>
+    <button class="btn primary" type="button" id="q-finish">إنهاء وعرض الإجابات</button>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="result" hidden>
+  <div class="score" id="r-score"></div>
+  <div class="final" id="r-final" hidden></div>
+  <div class="actions" id="r-actions"></div>
+  <div class="filter">
+    <h3>الإجابات والشرح</h3>
+    <label style="font-size:.9rem;display:flex;gap:6px;align-items:center"><input type="checkbox" id="r-wrong"> الأخطاء فقط</label>
+  </div>
+  <div class="rv" id="r-list"></div>
+</section>
+
+</div>
+
+<script>
+(function(){
+try{document.documentElement.lang='ar';document.documentElement.dir='rtl';}catch(e){}
+
+/* ================= helpers ================= */
+var TYPE={calc:'حسابي',concept:'تعريف ومفهوم',class:'تصنيف'};
+var SRC={M1:'الوحدة 1',M2:'الوحدة 2.1'};
+function R(a,b){return a+Math.floor(Math.random()*(b-a+1));}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function F(n){return Math.round(n).toLocaleString('en-US');}
+function M(n){return Math.round(n)===0?'لا شيء (صفر)':F(n)+' ريال';}
+function shuffle(n){var a=[];for(var i=0;i<n;i++)a.push(i);for(var j=n-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function S(id,t,s,q,o,ex,ref){return {id:id,t:t,s:s,q:q,o:o,ex:ex,ref:ref};}
+function T(id,t,s,ref,gen){return {id:id,t:t,s:s,ref:ref,gen:gen};}
+
+/* ================= LEVEL 1 bank ================= */
+var B1=[
+S('1c1','concept','M1','أي العبارات التالية تعبّر بدقة عن مفهوم الضريبة؟',
+ ['التزام مالي يُفرض بقوة القانون دون أن يقابله منفعة مباشرة محددة للمكلف','مبلغ يدفعه المكلف مقابل خدمة حكومية محددة يحصل عليها','مساهمة اختيارية يقدمها الأفراد والشركات لدعم النفقات العامة','رسم يُفرض على الشركات وحدها دون الأفراد'],
+ 'الضريبة التزام مالي يُفرض <b>بقوة القانون</b> على الأفراد أو المنشآت <b>دون مقابل مباشر</b> محدد، وتُستخدم مورداً عاماً لتمويل النفقات العامة. لذلك هي ليست مقابل خدمة، وليست اختيارية، ولا تقتصر على الشركات.',
+ 'الوحدة 1 · البند 1.1 مفهوم الضريبة، والبند 1.4 خصائص الضريبة'),
+S('1c2','concept','M1','أي مادة من الدستور الدائم لدولة قطر نصّت على أن «الضرائب أساسها العدالة الاجتماعية، ولا يجوز فرضها إلا بقانون»؟',
+ ['المادة 43','المادة 24','المادة 77','المادة 33'],
+ 'هذا <b>مبدأ قانونية الضريبة</b>: لا يجوز فرض ضريبة أو تعديلها أو إلغاؤها إلا بقانون، وقد أكدته <b>المادة 43</b> من الدستور الدائم. أما 24 فرقم قانون الضريبة على الدخل (2018)، و77 رقم القرار الأميري بإنشاء الهيئة العامة للضرائب، و33 مادة مكافحة التجنب في قانون الدخل.',
+ 'الوحدة 1 · البند 1.2 الأساس القانوني لفرض الضريبة'),
+S('1c3','concept','M2','معايير الإقامة الضريبية للفرد في قطر هي: المسكن الدائم، أو الإقامة أكثر من 183 يوماً، أو الجنسية القطرية. متى يُعد الفرد مقيماً؟',
+ ['إذا تحقق فيه معيار واحد منها على الأقل','إذا تحققت فيه المعايير الثلاثة معاً','إذا تحقق فيه معياران على الأقل','إذا أقام 183 يوماً فقط، فهو المعيار الوحيد المعتمد'],
+ 'معايير الإقامة في قطر <b>بديلة</b>: يكفي تحقق أحدها. ففي مثال المستشار البريطاني تحقق المسكن الدائم والـ 183 يوماً ولم يُشترط أن يكون قطرياً فعُدّ مقيماً. وشرط الأيام يكفي وحده حتى دون مسكن دائم.',
+ 'الوحدة 2.1 · البند 2.2 الشخص المقيم وغير المقيم'),
+S('1c4','concept','M2','ما تعريف «المنشأة الدائمة» في قانون الضريبة على الدخل؟',
+ ['مكان ثابت للأعمال يباشر من خلاله المشروع أعماله كلياً أو جزئياً','أي فرع مسجّل في السجل التجاري القطري','أي شركة أجنبية تتعامل مع عميل داخل قطر','مستودع تحتفظ فيه الشركة الأجنبية ببضائعها للتخزين فقط'],
+ 'المنشأة الدائمة <b>مكان ثابت للأعمال يباشر من خلاله المشروع أعماله كلياً أو جزئياً</b>، ولا يشترط تسجيل فرع، والتعامل مع عميل قطري وحده لا يكفي. أما المستودع المستخدم للتخزين فقط فنشاط تحضيري أو مساعد مستثنى من المفهوم.',
+ 'الوحدة 2.1 · قائمة المصطلحات والبند 2.3'),
+S('1c5','concept','M1','ما المقصود بمبدأ «التقييم الذاتي» الذي يقوم عليه النظام الضريبي في قطر؟',
+ ['أن يحدد المكلف التزاماته ويحتسب الضريبة ويقدّم إقراره بنفسه، ثم تراقبه الهيئة لاحقاً','أن تحتسب الهيئة الضريبة لكل مكلف وتبلغه بها ليدفعها','ألا يقدّم المكلف إقراراً إلا إذا طلبته الهيئة منه','أن تُقدَّر الضريبة جزافياً حسب حجم النشاط'],
+ 'في التقييم الذاتي <b>المكلف هو المسؤول</b> عن تحديد خضوعه واحتساب الضريبة وتقديم الإقرار وسدادها، ثم تراجع <b>الهيئة لاحقاً</b> عبر الفحص. لذلك لا يُقبل عذر «لم تطلب الهيئة مني الإقرار».',
+ 'الوحدة 1 · البند 3.6 آلية عمل النظام، والبند 5.1'),
+S('1c6','concept','M2','ما المقصود بـ «الدخل المعفى» من الضريبة؟',
+ ['دخل يقع أصلاً في نطاق الخضوع، لكن القانون أعفاه بنص صريح وفق شروط محددة','دخل لا يرتبط بدولة قطر أصلاً فلا تشمله الضريبة','أي دخل لم تُفرض عليه ضريبة فعلياً لأي سبب','دخل الشركة في سنتها الأولى من النشاط'],
+ 'المعفى <b>داخل نطاق الضريبة</b> لكن أخرجه نص قانوني صريح بشروط. أما الدخل الذي لا يرتبط بقطر أصلاً فهو <b>غير خاضع</b> لا معفى. وعدم دفع ضريبة فعلياً لا يعني الإعفاء، ولا يوجد إعفاء تلقائي للسنة الأولى.',
+ 'الوحدة 2.1 · البند 4.1'),
+S('1c7','concept','M1','أي العبارات التالية تمثّل إحدى خصائص الضريبة؟',
+ ['تُدفع دون مقابل مباشر وتُستخدم مورداً عاماً لتمويل النفقات العامة','تُفرض بموجب اتفاق بين الدولة والمكلف','يدفعها المكلف مقابل خدمة محددة يحصل عليها','تُفرض لتحقيق منفعة فردية للمكلف'],
+ 'من خصائص الضريبة أنها تستند إلى أساس قانوني، و<b>تُدفع دون مقابل مباشر</b>، وتُعد <b>مورداً عاماً</b> لتمويل النفقات العامة، وتُفرض لتحقيق <b>المصلحة العامة</b> لا منفعة فردية. ولا تُفرض باتفاق بل بقوة القانون.',
+ 'الوحدة 1 · البند 1.4 خصائص الضريبة'),
+S('1c8','concept','M1','ما الغرض من فرض الضريبة الانتقائية على منتجات التبغ في دولة قطر؟',
+ ['تحقيق الإيرادات والحد من استهلاك سلع ذات أثر صحي سلبي معاً','زيادة الواردات من هذه المنتجات','تشجيع استهلاك منتجات التبغ','دعم الشركات المصنعة للتبغ'],
+ 'الضريبة الانتقائية مثال على <b>تكامل الأهداف</b>: تحقق هدفاً مالياً (الإيرادات) وهدفاً صحياً واجتماعياً (تقليل الاستهلاك) في الوقت نفسه، برفع السعر النهائي للسلعة.',
+ 'الوحدة 1 · البندان 1.5 و1.6، والبند 2.3.1'),
+S('1c9','concept','M1','ما الوضع الحالي لضريبة القيمة المضافة في دولة قطر وفق المادة التدريبية؟',
+ ['غير مطبقة حالياً، ومتوقع تطبيقها وفق الاتفاقية الخليجية الموحدة بنسبة أساسية 5%','مطبقة حالياً بنسبة 5%','مطبقة حالياً بنسبة 10%','تُفرض حالياً على الشركات الأجنبية وحدها'],
+ 'حتى تاريخ إعداد المادة <b>لا تطبق قطر ضريبة القيمة المضافة</b>، ومتوقع تطبيقها مستقبلاً وفق الاتفاقية الموحدة لدول مجلس التعاون التي نصت على نسبة أساسية <b>5%</b>. وهي ضريبة غير مباشرة على توريد السلع والخدمات.',
+ 'الوحدة 1 · البند 2.3.2، والبند 3.2.2'),
+S('1c10','concept','M2','ما المقصود بـ «الوعاء الضريبي»؟',
+ ['الأساس الذي تُحسب عليه الضريبة ويُطبَّق عليه سعرها، مثل الدخل الخاضع','إجمالي المبيعات المسجلة خلال السنة','رصيد النقد في حسابات الشركة البنكية','قيمة الأصول الثابتة التي تملكها الشركة'],
+ 'الوعاء هو <b>الأساس الذي تُحتسب على أساسه الضريبة</b> ويُطبق عليه سعرها، ويتمثل في المادة الخاضعة التي يحددها القانون كالدخل. ولا تُحسب الضريبة مباشرة على المبيعات ولا على النقد.',
+ 'الوحدة 2.1 · قائمة المصطلحات والبند 1.3؛ الوحدة 1 · البند 1.3'),
+S('1c11','concept','M2','من هو «المكلّف» وفق قانون الضريبة على الدخل؟',
+ ['كل شخص طبيعي أو معنوي أو كيان ملزم بدفع الضريبة أو القيام بالواجبات الضريبية التي ينص عليها القانون','الموظف المختص في الهيئة العامة للضرائب','المستهلك النهائي الذي يتحمل الضريبة غير المباشرة فقط','المحاسب الخارجي الذي يعد القوائم المالية'],
+ 'المكلف هو <b>كل شخص طبيعي أو معنوي أو أي كيان آخر ملزم بدفع الضريبة أو القيام بالواجبات الضريبية الأخرى</b> كالتسجيل والإقرار. وقد استخدم قانون الدخل مصطلح «المكلف»، بينما استخدم مشروع قانون القيمة المضافة مصطلح «الخاضع للضريبة».',
+ 'الوحدة 2.1 · قائمة المصطلحات؛ الوحدة 1 · البند 1.1'),
+S('1c12','concept','M2','ما المقصود بضريبة الاستقطاع من المنبع؟',
+ ['نسبة يقتطعها الدافع داخل قطر من مدفوعات محددة لغير المقيمين ويوردها للهيئة','ضريبة يدفعها المستهلك عند شراء السلع','ضريبة سنوية على أرباح الشركات المقيمة','رسم يُفرض على البضائع المستوردة'],
+ 'تقوم فكرتها على <b>التزام الجهة الدافعة داخل قطر</b> باستقطاع <b>5%</b> من مدفوعات محددة (إتاوات، فوائد، عمولات، خدمات منجزة في قطر) لغير المقيمين قبل تحويلها، ثم توريدها للهيئة.',
+ 'الوحدة 2.1 · البند 1.6؛ الوحدة 1 · البند 2.2.2'),
+S('1c13','concept','M1','وفق قائمة مصطلحات الوحدة الأولى، ما المقصود بـ «النشاط»؟',
+ ['مهنة أو حرفة أو تجارة أو صناعة أو مضاربة أو أي عمل يستهدف الربح أو الدخل، بما في ذلك استغلال الأملاك المنقولة وغير المنقولة','أي عمل تطوعي تقوم به الشركة','النشاط الحكومي الذي تمارسه الوزارات فقط','أي معاملة تزيد قيمتها على مليون ريال'],
+ 'النشاط هو <b>مهنة أو حرفة أو تجارة أو صناعة أو مضاربة أو أي عمل يستهدف الربح أو الدخل</b>، ويشمل استغلال الأملاك المنقولة وغير المنقولة. والعبرة بهدف الربح أو الدخل لا بقيمة المعاملة.',
+ 'الوحدة 1 · قائمة مصطلحات الوحدة'),
+
+S('1k1','class','M1','«الحدث أو النشاط الذي يؤدي إلى نشوء الالتزام الضريبي، مثل تحقيق الدخل أو بيع سلعة». إلى أي عنصر من عناصر الضريبة ينتمي هذا الوصف؟',
+ ['الواقعة المنشئة للضريبة','الوعاء الضريبي','سعر الضريبة','المكلف'],
+ 'عناصر الضريبة: <b>الواقعة المنشئة</b> (الحدث الذي ينشئ الالتزام)، و<b>الوعاء</b> (القيمة التي تُحسب عليها)، و<b>السعر</b> (النسبة المطبقة)، و<b>المكلف</b> (الملزم بها). والوصف في السؤال تعريف الواقعة المنشئة.',
+ 'الوحدة 1 · البند 1.3 العناصر الأساسية للضريبة'),
+S('1k2','class','M1','أي الضرائب التالية تُصنَّف ضريبةً مباشرة في دولة قطر؟',
+ ['ضريبة الدخل','الضريبة الانتقائية','ضريبة القيمة المضافة المتوقع تطبيقها','ضريبة على تداول السلع يتحمّلها المستهلك النهائي'],
+ 'الضريبة المباشرة تُفرض على <b>دخل أو أرباح المكلف</b> ويتحمّل عبأها بنفسه، وأهم صورها <b>ضريبة الدخل</b>. أما الانتقائية والقيمة المضافة وأي ضريبة على الاستهلاك فغير مباشرة لأن عبأها ينتقل إلى المستهلك النهائي.',
+ 'الوحدة 1 · البندان 2.2 و2.3، وجدول 2.4'),
+S('1k3','class','M1','أي الممارسات التالية تُصنَّف تهرباً ضريبياً وليس تخطيطاً مشروعاً؟',
+ ['إدراج مصاريف استشارية وهمية لطرف مرتبط في الخارج دون خدمة فعلية أو مستندات','دراسة أثر اتفاقية تجنب الازدواج الضريبي قبل توقيع العقد','توثيق المصاريف التشغيلية وإثبات ارتباطها بالنشاط الخاضع','تحليل توقيت الاعتراف بالإيرادات والمصاريف وفق القانون'],
+ 'التهرب يقوم على <b>مخالفة القانون أو تقديم صورة غير صحيحة عن الواقع</b>، ومن صوره إدراج مصاريف غير حقيقية أو فواتير صورية. أما الخيارات الأخرى فهي من أدوات التخطيط المشروع.',
+ 'الوحدة 1 · البنود 4.3 و4.5.1 و4.5.2'),
+S('1k4','class','M1','ما الخطوة الأولى في مراحل الامتثال الضريبي؟',
+ ['التسجيل الضريبي لدى الهيئة','تقديم الإقرار الضريبي','سداد الضريبة','الفحص والتدقيق الضريبي'],
+ 'مراحل الامتثال بالترتيب: <b>التسجيل</b> (والحصول على رقم ضريبي)، ثم الاحتفاظ بالدفاتر والسجلات، ثم تقديم الإقرار، ثم السداد، ثم الفحص والتدقيق من الهيئة.',
+ 'الوحدة 1 · البند 5.2 مراحل الامتثال الضريبي'),
+S('1k5','class','M2','فاتورة كهرباء ومياه عن شهر ديسمبر وصلت الشركة ولم تُسدَّد حتى نهاية السنة. كيف يُصنَّف هذا البند؟',
+ ['مصروف مستحق','مخصص','احتياطي','أصل رأسمالي'],
+ '<b>المصروف المستحق</b> تحقق فعلاً ويخص الفترة لكنه لم يُدفع بعد، مثل الرواتب والكهرباء والأتعاب المستحقة، وهو غالباً أكثر قبولاً ضريبياً. أما <b>المخصص</b> فالتزام محتمل غير مؤكد، و<b>الاحتياطي</b> تجنيب من الأرباح.',
+ 'الوحدة 2.1 · البند 5.4.1'),
+S('1k6','class','M1','أي الضرائب التالية تُصنَّف ضريبةً غير مباشرة في دولة قطر؟',
+ ['الضريبة الانتقائية','ضريبة الدخل','ضريبة الاستقطاع من المنبع','قواعد الحد الأدنى العالمي للضريبة'],
+ 'الضرائب غير المباشرة تُفرض على السلع والخدمات ويتحمّل عبأها المستهلك النهائي، وأبرزها في قطر <b>الضريبة الانتقائية</b>. أما ضريبة الدخل والاستقطاع وقواعد الحد الأدنى العالمي فتصنفها الوحدة ضمن الضرائب المباشرة.',
+ 'الوحدة 1 · البند 2.1 (جدول التصنيف) والبند 2.3.1'),
+S('1k7','class','M1','«النسبة أو المبلغ المحدد الذي يُطبَّق على الوعاء الضريبي». إلى أي عنصر من عناصر الضريبة ينتمي هذا الوصف؟',
+ ['سعر الضريبة','الوعاء الضريبي','الواقعة المنشئة','المكلف'],
+ '<b>سعر الضريبة</b> هو النسبة أو المبلغ المحدد الذي يُطبق على الوعاء، مثل 10% على الدخل الخاضع. أما الوعاء فهو القيمة التي يُطبق عليها هذا السعر.',
+ 'الوحدة 1 · البند 1.3 العناصر الأساسية للضريبة'),
+S('1k8','class','M1','أي الحالات التالية تُصنَّف تخطيطاً ضريبياً مشروعاً؟',
+ ['تنظيم العقود بناءً على تحليل قانوني صحيح مع مستندات تعكس واقع المعاملة','عدم تسجيل جزء من الإيرادات لتقليل الضريبة','إدراج مصاريف وهمية غير مدعومة بمستندات','إخفاء وجود منشأة دائمة داخل الدولة'],
+ 'التخطيط المشروع <b>تنظيم للأعمال وفق القانون</b> يستند إلى نص قانوني ووقائع حقيقية ومستندات. أما إخفاء الإيرادات أو المصاريف الوهمية أو إخفاء المنشأة الدائمة فهي صور للتهرب الضريبي.',
+ 'الوحدة 1 · البنود 4.1 و4.4 و4.5.1'),
+S('1k9','class','M2','أي البنود التالية يُصنَّف غالباً مصروفاً غير قابل للخصم ضريبياً؟',
+ ['غرامات ومخالفات تنظيمية','رواتب موظفين مرتبطة بالنشاط','إيجار المكاتب التشغيلية','مصاريف الصيانة التشغيلية'],
+ 'نصت المادة 8 على عدم جواز خصم <b>الغرامات والجزاءات المفروضة بسبب مخالفة القوانين</b>، فتُضاف إلى الربح المحاسبي عند حساب الوعاء. أما الرواتب والإيجارات والصيانة المرتبطة بالنشاط والموثقة فقابلة للخصم من حيث المبدأ.',
+ 'الوحدة 2.1 · البنود 5.3 و5.3.1 و5.3.3'),
+S('1k10','class','M2','أي الأنشطة التالية يُعفى دخلها من ضريبة الدخل وفق المادة 4؟',
+ ['الزراعة والصيد البحري','أعمال المقاولات لشركة أجنبية','الاستشارات الهندسية لمنشأة دائمة','تأجير المعدات لشركة أجنبية في قطر'],
+ 'جدول إعفاءات المادة 4 يعفي دخل <b>الزراعة والصيد البحري</b> دعماً للأمن الغذائي والأنشطة التقليدية. أما الأنشطة الأخرى فأنشطة تجارية خاضعة.',
+ 'الوحدة 2.1 · البند 4.1 (جدول الإعفاءات وفق المادة 4)'),
+S('1k11','class','M1','«الشخص المسؤول قانوناً عن تحصيل الضريبة أو استقطاعها أو سدادها للهيئة، مثل الجهة التي تطبق الاستقطاع من المنبع». إلى أي فئة ينتمي هذا الوصف؟',
+ ['الشخص الملزم بالتحصيل أو السداد','المكلف (الخاضع للضريبة)','المقيم','المنشأة الدائمة'],
+ 'تصنّف الوحدة الأولى المرتبطين بالنظام الضريبي إلى: المكلف، والمقيم، وغير المقيم، والمنشأة الدائمة، و<b>الشخص الملزم بالتحصيل أو السداد</b> وهو المسؤول قانوناً عن تحصيل الضريبة أو استقطاعها وسدادها للهيئة.',
+ 'الوحدة 1 · البند 3.5 الكيانات الخاضعة للضريبة'),
+
+T('1t1','calc','M2','الوحدة 2.1 · البند 1.4؛ الوحدة 1 · البند 2.2.1',function(){
+ var x=R(12,98)*100000,c=x/10;
+ return {q:'شركة أجنبية تعمل في قطر، ودخلها الخاضع للضريبة لهذا العام '+M(x)+'، ولا ينطبق عليها معدل خاص. كم ضريبة الدخل المستحقة؟',
+ o:[M(c),M(x*0.05),M(x*0.15),M(x*0.35)],
+ ex:'المعدل العام لضريبة الدخل <b>10%</b> من الدخل الخاضع: '+F(x)+' × 10% = <b>'+M(c)+'</b>. الخيارات الأخرى تطبّق 5% (الاستقطاع) أو 15% (الركيزة الثانية) أو 35% (العمليات البترولية).'};}),
+T('1t2','calc','M2','الوحدة 2.1 · البند 1.6 (المادة 9 بند 2 من القانون)',function(){
+ var k=pick([['إتاوات مقابل استخدام برنامج تملكه','الإتاوات'],['عمولة عن وكالة تجارية','العمولات'],['أتعاب خدمات فنية نُفذت جزئياً في قطر','الخدمات المنجزة كلياً أو جزئياً في الدولة']]);
+ var x=R(4,90)*10000,c=x*0.05;
+ return {q:'دفعت شركة قطرية لشركة أجنبية غير مقيمة مبلغ '+M(x)+' '+k[0]+'، والشركة الأجنبية ليس لها منشأة دائمة في قطر ولا توجد اتفاقية ضريبية. كم المبلغ الذي تستقطعه الشركة القطرية وتورّده للهيئة؟',
+ o:[M(c),M(x*0.1),'لا شيء، لأن المستفيد غير مقيم',M(x*0.95)],
+ ex:'تخضع '+k[1]+' المدفوعة لغير مقيم لا ترتبط بمنشأة دائمة لاستقطاع نهائي بنسبة <b>5% من المبلغ الإجمالي</b>: '+F(x)+' × 5% = <b>'+M(c)+'</b>. وتحوّل الشركة للمستفيد الباقي '+M(x*0.95)+' (وهو ليس مبلغ الاستقطاع)، وتورّد المستقطع قبل اليوم 16 من الشهر التالي. وكون المستفيد غير مقيم هو سبب الاستقطاع لا سبب الإعفاء منه.'};}),
+T('1t3','calc','M2','الوحدة 2.1 · البند 5.3.4 (المادة 8 بند 1 من اللائحة التنفيذية)',function(){
+ var hi=Math.random()<0.5,I,H,lim,d1,why;
+ if(!hi){I=R(10,40)*500000;lim=500000;H=R(52,95)*10000;d1=H-I*0.02;why='والأعلى هو 500,000';}
+ else{I=R(30,60)*1000000;lim=I*0.02;H=lim+R(5,40)*10000;d1=H-500000;why='وهو أعلى من 500,000';}
+ var add=H-lim;
+ return {q:'صافي دخل شركة قبل خصم مصروفات الضيافة '+M(I)+'، وأنفقت '+M(H)+' على الضيافة والترفيه داخل قطر. كم المبلغ غير القابل للخصم الذي يُضاف إلى الوعاء؟',
+ o:[M(add),M(d1),'لا شيء (صفر)',M(H)],
+ ex:'الحد = <b>2% من الدخل الصافي أو 500,000 ريال، أيهما أعلى</b>. 2% × '+F(I)+' = '+F(I*0.02)+'، '+why+'، فالحد المقبول '+F(lim)+'. يُضاف للوعاء '+F(H)+' − '+F(lim)+' = <b>'+M(add)+'</b>.'};}),
+T('1t4','calc','M2','الوحدة 2.1 · البند 5.2.1 (المادة 8 بند 2 من اللائحة التنفيذية)',function(){
+ var I=R(12,40)*500000,cap=I*0.03,D=cap+R(2,30)*10000,add=D-cap;
+ return {q:'صافي دخل شركة قبل خصم التبرعات '+M(I)+'، وتبرعت بمبلغ '+M(D)+' لجمعية خيرية مرخصة غير هادفة للربح في قطر. كم يُضاف إلى الوعاء الضريبي؟',
+ o:[M(add),M(cap),M(D),'لا شيء (صفر)'],
+ ex:'حد خصم التبرعات <b>3% من الدخل الصافي</b> قبل هذا الخصم: '+F(I)+' × 3% = '+F(cap)+' وهو المقبول. يُضاف للوعاء '+F(D)+' − '+F(cap)+' = <b>'+M(add)+'</b>. ('+F(cap)+' هو المبلغ المقبول لا المضاف).'};}),
+T('1t5','calc','M2','الوحدة 2.1 · البند 5.6.2 (المادة 7 من القانون والبند 4 من المادة 5 من اللائحة)',function(){
+ var y=pick([2023,2024]),L=R(10,50)*100000,P=L+R(5,60)*100000,c=(P-L)/10;
+ return {q:'حققت شركة خسارة ضريبية في '+y+' قدرها '+M(L)+'، ثم ربحاً ضريبياً في '+(y+1)+' قدره '+M(P)+'. كم ضريبة الدخل لسنة '+(y+1)+' بعد ترحيل الخسارة؟',
+ o:[M(c),M(P/10),M(L/10),'لا شيء (صفر)'],
+ ex:'يجوز خصم الخسارة المرحّلة خلال 5 سنوات تبدأ بعد سنة الخسارة: الوعاء = '+F(P)+' − '+F(L)+' = '+F(P-L)+'، والضريبة × 10% = <b>'+M(c)+'</b>. ولولا الترحيل لكانت '+M(P/10)+'.'};}),
+T('1t6','calc','M2','الوحدة 2.1 · قائمة المصطلحات (الدخل الإجمالي، الدخل الصافي، الدخل الخاضع)',function(){
+ var G=R(20,60)*1000000,D=R(5,G/1000000-10)*1000000,Lc=R(2,8)*500000,X=G-D-Lc;
+ return {q:'بيانات مكلف للسنة: الدخل الإجمالي '+M(G)+'، والخصومات المسموح بها قانوناً '+M(D)+'، وخسائر مرحّلة مسموح بخصمها '+M(Lc)+'. كم الدخل الخاضع للضريبة؟',
+ o:[M(X),M(G-D),M(G-Lc),M(G)],
+ ex:'التسلسل وفق التعاريف: <b>الدخل الإجمالي</b> − الخصومات المسموح بها = <b>الدخل الصافي</b> ('+F(G-D)+')، ثم الدخل الصافي − الخسائر = <b>الدخل الخاضع</b>: '+F(G-D)+' − '+F(Lc)+' = <b>'+M(X)+'</b>.'};}),
+T('1t7','calc','M2','الوحدة 2.1 · البند 5.2.3 فروقات الإهلاك',function(){
+ var A=R(20,80)*100000,d=R(3,20)*100000,Tx=A-d;
+ return {q:'سجّلت شركة إهلاكاً محاسبياً لمعداتها قدره '+M(A)+'، بينما الإهلاك المقبول ضريبياً '+M(Tx)+'. ما التعديل الضريبي المطلوب على الربح المحاسبي؟',
+ o:['إضافة '+M(d),'خصم '+M(d),'إضافة '+M(A),'لا تعديل، فالإهلاك مصروف مقبول'],
+ ex:'خُصم في الدفاتر إهلاك أكبر مما يسمح به القانون، فيُعاد الفرق إلى الربح: '+F(A)+' − '+F(Tx)+' = <b>إضافة '+M(d)+'</b>. وفروقات الإهلاك غالباً فروقات توقيت.'};}),
+T('1t8','calc','M2','الوحدة 2.1 · البند 5.3.3 (المادة 8 من القانون)',function(){
+ var P=R(10,60)*500000,Fi=R(10,90)*10000,c=(P+Fi)/10;
+ return {q:'صافي الربح المحاسبي لشركة '+M(P)+'، وقد خُصمت ضمن مصروفاتها غرامات ومخالفات تنظيمية بقيمة '+M(Fi)+'، ولا توجد تعديلات أخرى. كم ضريبة الدخل المستحقة؟',
+ o:[M(c),M(P/10),M((P-Fi)/10),M(Fi/10)],
+ ex:'الغرامات والجزاءات <b>غير قابلة للخصم</b> فتُضاف إلى الربح: '+F(P)+' + '+F(Fi)+' = '+F(P+Fi)+'، والضريبة × 10% = <b>'+M(c)+'</b>.'};})
+];
+
+/* ================= LEVEL 2 bank ================= */
+var B2=[
+S('2c1','concept','M1','في آلية ضريبة القيمة المضافة، ماذا تُسمّى الضريبة التي يحصّلها الخاضع للضريبة على توريداته من السلع والخدمات؟',
+ ['ضريبة المخرجات','ضريبة المدخلات','ضريبة الاستقطاع','الضريبة الانتقائية'],
+ 'يحصّل الخاضع للضريبة الضريبة على توريداته وتسمى <b>ضريبة المخرجات</b>، ويحق له خصم الضريبة المدفوعة على مشترياته المرتبطة بالنشاط وتسمى <b>ضريبة المدخلات</b>، فيتحمّل المستهلك النهائي العبء.',
+ 'الوحدة 1 · البند 2.3.2 ضريبة القيمة المضافة'),
+S('2c2','concept','M1','ما المقصود بمفهوم «إساءة استخدام القانون»؟',
+ ['معاملة تقع شكلاً ضمن إطار القانون، لكنها تخالف روحه أو غايته التشريعية لتحقيق ميزة ضريبية غير مقصودة','إخفاء جزء من الإيرادات عن الهيئة','التأخر في تقديم الإقرار الضريبي عن موعده','تطبيق اتفاقية تجنب الازدواج وفق شروطها'],
+ 'إساءة استخدام القانون أن يستغل المكلف نصاً بطريقة لا تعكس الهدف الذي وُضع من أجله: <b>المعاملة صحيحة شكلاً لكنها تخالف الغاية التشريعية</b>، وقد تعيد الإدارة الضريبية معالجتها وفق حقيقتها الاقتصادية. أما إخفاء الإيرادات فتهرب صريح.',
+ 'الوحدة 1 · البند 4.7'),
+S('2c3','concept','M1','ما العناصر الثلاثة التي يتطلبها التخطيط الضريبي المشروع؟',
+ ['نص قانوني يسمح بالمعالجة، واستناد المعاملة إلى وقائع اقتصادية حقيقية، ومستندات وإفصاح يعكسان الواقع','تخفيض الضريبة، وموافقة المستشار، وعقد موقّع','موافقة مسبقة من الهيئة، وتدقيق خارجي، وسداد مقدّم','تقليل الإيرادات المعلنة، وزيادة المصاريف، وتأجيل الإقرار'],
+ 'التمييز بين التخطيط والتهرب لا يعتمد على النتيجة بل على الأساس: <b>نص قانوني يسمح بالمعالجة</b>، و<b>وقائع اقتصادية حقيقية</b>، و<b>مستندات وإفصاح صحيح</b>. وغياب أي منها قد يحوّل المعالجة إلى مخالفة.',
+ 'الوحدة 1 · البند 4.4'),
+S('2c4','concept','M2','عند تحديد ما إذا كان الدخل متحققاً من مصدر داخل قطر، ما العامل الأهم؟',
+ ['مكان تنفيذ النشاط فعلياً والجوهر الاقتصادي للمعاملة','مكان إصدار الفاتورة','مكان الحساب البنكي الذي تُحوَّل إليه الأموال','عملة المعاملة'],
+ 'الهيئة تنظر إلى: أين نُفذت الأعمال فعلاً؟ أين استُخدمت الخدمة أو الأصل؟ من المستفيد الاقتصادي؟ هل يوجد وجود فعلي؟ لذلك فإصدار الفواتير من الخارج أو التحويل لحساب خارجي <b>لا يمنع</b> الخضوع إذا كان النشاط منفذاً في قطر.',
+ 'الوحدة 2.1 · البندان 2.4 و3.2'),
+S('2c5','concept','M2','متى يجب توريد ضريبة الاستقطاع من المنبع إلى الهيئة العامة للضرائب؟',
+ ['قبل اليوم السادس عشر من الشهر التالي للشهر الذي تم فيه الاستقطاع، إلكترونياً عبر بوابة «ضريبة»','خلال 30 يوماً من نهاية السنة المالية','مع الإقرار الضريبي السنوي','خلال أربعة أشهر من تاريخ الدفع'],
+ 'يجب التوريد <b>قبل اليوم 16 من الشهر التالي</b> للاستقطاع بالنموذج المعد إلكترونياً عبر بوابة «ضريبة»، مع إصدار شهادة استقطاع للمستفيد. أما مهلة 30 يوماً فهي لإقرار الأرباح الرأسمالية.',
+ 'الوحدة 2.1 · البند 1.6 (المادة 24 من اللائحة التنفيذية)'),
+S('2c6','concept','M1','بموجب أي أداة قانونية أُنشئت الهيئة العامة للضرائب في دولة قطر؟',
+ ['القرار الأميري رقم 77 لسنة 2018، وهي تتبع وزير المالية','قانون الضريبة على الدخل رقم 24 لسنة 2018','قرار مجلس الوزراء رقم 39 لسنة 2019','قانون الضريبة الانتقائية رقم 25 لسنة 2018'],
+ 'أُنشئت الهيئة <b>بالقرار الأميري رقم 77 لسنة 2018</b> هيئةً حكومية تتبع وزير المالية ولها الشخصية المعنوية. والقانون 24/2018 قانون ضريبة الدخل، وقرار مجلس الوزراء 39/2019 أصدر لائحته التنفيذية، والقانون 25/2018 قانون الضريبة الانتقائية.',
+ 'الوحدة 1 · البند 3.4 والمقدمة العامة'),
+S('2c7','concept','M2','وفق المادة 23 من اللائحة التنفيذية، على أي مدفوعات لا تُستقطع الضريبة من المنبع؟',
+ ['المدفوعات لأشخاص صدرت لهم بطاقة ضريبية في الدولة أو المسجلين لدى مركز قطر للمال','المدفوعات للمواطنين الخليجيين أياً كان نشاطهم','كل مدفوعة تقل عن 100,000 ريال','المدفوعات المسددة بعملة أجنبية'],
+ 'لا تُستقطع الضريبة من المبالغ المدفوعة <b>لمن صدرت لهم بطاقة ضريبية في الدولة</b> أو <b>للمسجلين لدى مركز قطر للمال</b>، ويسري ذلك خصوصاً على المدفوعات لمنشأة دائمة يملكها غير مقيم. ولا يوجد حد أدنى للمبلغ ولا استثناء بالعملة.',
+ 'الوحدة 2.1 · البندان 1.6 و2.5.1 (المادة 23 من اللائحة)'),
+S('2c8','concept','M2','وفق المادة 21 من اللائحة التنفيذية، أي المدفوعات التالية لا تُعد من المدفوعات الخاضعة للاستقطاع؟',
+ ['فوائد الودائع لدى البنوك والمصارف الموجودة في الدولة','إتاوات استخدام برامج مملوكة لشركة أجنبية','عمولات وكالة ووساطة لغير مقيم','أتعاب خدمات فنية منجزة جزئياً في قطر لغير مقيم'],
+ 'استثنت المادة 21 بعض الأنشطة والفوائد، ومنها <b>فوائد الودائع لدى البنوك والمصارف في الدولة</b>، وفوائد الأذونات والسندات الحكومية، وإعادة التأمين، والشحن وبيع التذاكر، والنقل البحري للبترول. أما الإتاوات والعمولات والخدمات المنجزة في قطر فخاضعة بنسبة 5%.',
+ 'الوحدة 2.1 · البند 1.6 (المادة 21 من اللائحة والمادة 9 بند 2 من القانون)'),
+S('2c9','concept','M2','لماذا تمنح الدولة الإعفاءات الضريبية عادةً؟',
+ ['كأداة لتحقيق أهداف اقتصادية أو استثمارية أو تنظيمية، مثل تشجيع الاستثمار وجذب رؤوس الأموال والتقنيات','تُمنح بصورة عشوائية دون أهداف محددة','لتقليل عدد المكلفين المسجلين لدى الهيئة','لتحل محل اتفاقيات تجنب الازدواج الضريبي'],
+ 'الإعفاءات <b>لا تُمنح عشوائياً</b> بل ترتبط بأهداف اقتصادية أو استثمارية أو تنظيمية: تشجيع الاستثمار، ودعم صناعات ومشاريع، وجذب رؤوس الأموال والتقنيات، وتحفيز أنشطة ذات أهمية خاصة. لذلك يجب فهم نطاقها وحدودها وشروطها.',
+ 'الوحدة 2.1 · البند 4.2'),
+S('2c10','concept','M1','لماذا تُعد الضرائب المباشرة من الأدوات المهمة في تحقيق العدالة الضريبية؟',
+ ['لأنها ترتبط غالباً بالقدرة المالية للمكلف، إذ تُفرض بناءً على الدخل أو الربح المتحقق','لأنها تُفرض على جميع السلع بالنسبة نفسها','لأن المستهلك النهائي يتحمّل عبأها','لأنها لا ترتبط بالدخل إطلاقاً'],
+ 'الضرائب المباشرة <b>ترتبط غالباً بالقدرة المالية للمكلف</b> لأنها تُفرض بناءً على الدخل أو الربح المتحقق، ويتحمّلها من حقق الدخل نفسه.',
+ 'الوحدة 1 · البند 2.2'),
+S('2c11','concept','M2','يعتمد القانون مبدأ الاستحقاق والمعايير المحاسبية الدولية أساساً لتحديد الدخل (المادة 6). هل يعني ذلك قبول جميع المعالجات المحاسبية ضريبياً؟',
+ ['لا، فالقانون قد يرفض بعض المصاريف، أو يضع لها حدوداً، أو يفرض توقيتاً أو معالجة مختلفة','نعم، فالربح المحاسبي هو الوعاء الضريبي دائماً','نعم، بشرط أن تكون القوائم مدققة','لا، لأن القانون يتجاهل القوائم المالية بالكامل'],
+ 'القوائم المالية <b>نقطة البداية</b> لا النتيجة النهائية: قد يرفض القانون مصاريف، أو يضع حدوداً لخصم بعضها، أو يفرض توقيتاً مختلفاً، فتنشأ فروقات بين الربح المحاسبي والوعاء. ولا يتجاهل القانون القوائم بل يبدأ منها.',
+ 'الوحدة 2.1 · البندان 5.1 و3.8'),
+S('2c12','concept','M1','أي مما يلي يعكس توجهات تطوير النظام الضريبي في دولة قطر؟',
+ ['تعزيز التحول الرقمي عبر منصة «ضريبة» والفوترة الإلكترونية وتعزيز الإفصاح والشفافية','إلغاء الخدمات الإلكترونية والعودة للإجراءات الورقية','تقليل متطلبات الإفصاح الضريبي','إلغاء مبدأ التقييم الذاتي'],
+ 'من أبرز التوجهات المستقبلية: <b>تطبيق ضريبة القيمة المضافة</b>، و<b>التحول الرقمي</b> (منصة «ضريبة» والفوترة الإلكترونية وربط البيانات)، و<b>تعزيز الإفصاح والشفافية</b> كتسعير التحويل وتبادل المعلومات.',
+ 'الوحدة 1 · البند 3.7'),
+S('2c13','concept','M1','أي المصطلحات التالية يُستخدم لتحديد خضوع غير المقيم لضريبة الدخل عند وجود نشاط ثابت أو مقر أعمال داخل الدولة؟',
+ ['المنشأة الدائمة','الشخص الملزم بالتحصيل','المقيم','المستهلك النهائي'],
+ '<b>المنشأة الدائمة</b> مفهوم مرتبط بضريبة الدخل يُستخدم لتحديد خضوع غير المقيم عند وجود نشاط ثابت أو مقر أعمال داخل الدولة.',
+ 'الوحدة 1 · البند 3.5؛ الوحدة 2.1 · البند 2.3'),
+
+S('2k1','class','M1','لماذا يُقال إن ضريبة الاستقطاع من المنبع تجمع بين خصائص الضرائب المباشرة وغير المباشرة؟',
+ ['لأنها تُفرض على دخل غير المقيم (مباشر)، لكنها تُحصَّل عن طريق طرف وسيط هو الدافع (غير مباشر)','لأنها تُفرض على الاستهلاك ويحصّلها البائع من المستهلك','لأن المستهلك النهائي يتحمّل عبأها دائماً','لأنها تُفرض على المقيمين وغير المقيمين بالنسبة نفسها'],
+ 'الاستقطاع مثال على حالة لا ينطبق عليها التمييز النظري تماماً: <b>يُفرض على دخل</b> (خاصية مباشرة) لكن <b>يُحصَّل عبر طرف وسيط</b> هو الجهة الدافعة (خاصية غير مباشرة).',
+ 'الوحدة 1 · البند 2.2.2'),
+S('2k2','class','M2','مهندسة غير قطرية تسكن شقة مستأجرة باسمها بعقد سنوي متجدد في الدوحة، لكنها أمضت 150 يوماً فقط في قطر هذا العام بسبب السفر. ما وضعها الضريبي؟',
+ ['مقيمة، لأن المسكن الدائم وحده يكفي','غير مقيمة، لأنها لم تكمل 183 يوماً','غير مقيمة، لأنها لا تحمل الجنسية القطرية','غير مقيمة، لأن الشروط الثلاثة لم تتحقق معاً'],
+ 'الشرط الأول <b>المسكن الدائم المتاح</b>، ولا يشترط أن يكون ملكاً، فالمستأجر بعقد مستمر يكفي والمعيار هو الديمومة. ولأن المعايير بديلة، فتحقق المسكن وحده يجعلها مقيمة رغم أن أيامها أقل من 183.',
+ 'الوحدة 2.1 · البند 2.2 (الشرط الأول)'),
+S('2k3','class','M2','شركة أجنبية تنفّذ أعمال تركيب داخل قطر لمدة 8 أشهر، بموقع عمل وفريق فني مقيم. كيف تُعامل أرباحها ضريبياً؟',
+ ['تكوّن منشأة دائمة، فتخضع أرباحها لضريبة الدخل 10% على الصافي مع تسجيل وإقرار','تخضع فقط لاستقطاع 5% على إجمالي المدفوعات','لا تخضع لأنها لم تسجّل فرعاً في قطر','تُعفى تلقائياً إذا كانت لدولتها اتفاقية مع قطر'],
+ 'مواقع البناء أو الإنشاء أو التركيب التي تستمر <b>أكثر من 6 أشهر</b> تكوّن منشأة دائمة (المادة 1، البند 2/أ من اللائحة)، فتنتقل المعاملة إلى ضريبة الدخل: <b>10% على صافي الأرباح</b> مع التسجيل والإقرار. ولا يُشترط تسجيل فرع، والاتفاقية لا تعفيها طالما تحققت المنشأة.',
+ 'الوحدة 2.1 · البندان 2.3 و2.5.2'),
+S('2k4','class','M2','أي الدخول التالية معفى من ضريبة الدخل وفق المادة 4 من القانون؟',
+ ['ربح فرد من بيع شقته الخاصة التي لا تتبع أصول نشاط خاضع','ربح شركة أجنبية من بيع مبنى مكاتبها المستخدم في نشاطها في قطر','أرباح منشأة دائمة لشركة مقاولات أجنبية','فوائد قرض تحصل عليها شركة تمارس نشاطاً خاضعاً'],
+ 'المادة 4 تعفي <b>الأرباح الرأسمالية التي يحققها الأشخاص الطبيعيون</b> من التصرف في العقارات أو الأوراق المالية بشرط ألا تتبع أصول نشاط خاضع. أما ربح الشركة من أصل تشغيلي وأرباح المنشأة الدائمة فخاضعة، وإعفاء الفوائد المصرفية خاص بالأفراد غير الممارسين لنشاط خاضع.',
+ 'الوحدة 2.1 · البند 3.4 وجدول المادة 4 في البند 4.1'),
+S('2k5','class','M2','حوّلت شركة 10,000,000 ريال من أرباحها إلى «احتياطي توسعات مستقبلية». كيف يُعامل هذا التحويل ضريبياً؟',
+ ['لا يُعد مصروفاً ولا يخفّض الوعاء الضريبي','مصروف قابل للخصم بالكامل','يُخصم منه 50% فقط','يُخصم إذا وافق عليه مجلس الإدارة'],
+ '<b>الاحتياطي</b> تخصيص ضمن حقوق الملكية أو الأرباح المحتجزة لغرض معين، وليس مصروفاً تشغيلياً. فحتى لو خفّض الأرباح المتاحة للتوزيع، <b>لا يخفّض الوعاء الضريبي</b>.',
+ 'الوحدة 2.1 · البندان 5.4.1 و5.4.5'),
+S('2k6','class','M2','شركة أجنبية تقدّم خدمات استشارية عن بُعد لعميل قطري، وتنفّذ كامل العمل من خارج قطر دون موظفين أو مكتب أو صلاحيات تفاوض داخل الدولة. كيف تُصنَّف حالتها؟',
+ ['لا يتوافر غالباً عنصر المنشأة الدائمة، لكن يُدرس خضوع المدفوعات للاستقطاع بحسب طبيعة الخدمات','تملك منشأة دائمة لأن العميل في قطر','لا يترتب أي التزام ضريبي ولا حاجة لأي دراسة','تُعد مقيمة في قطر لأنها تخدم السوق القطري'],
+ 'غياب الموظفين والمكتب والصلاحيات داخل قطر يعني أنه <b>قد لا يتوافر عنصر المنشأة الدائمة</b>، لكن ذلك <b>لا يمنع دراسة الاستقطاع</b> بحسب طبيعة الخدمات ومكان الانتفاع بها. فعدم وجود منشأة لا يعني بالضرورة عدم وجود التزام.',
+ 'الوحدة 2.1 · البند 2.3 (مثال الخدمات عن بُعد) والبند 2.5'),
+S('2k7','class','M2','أي الحالات التالية لا تكوّن منشأة دائمة رغم وجود مكان ثابت في قطر؟',
+ ['مكان يُستخدم فقط لتخزين بضائع الشركة أو عرضها','فريق يدير المشروع ويتفاوض على العقود ويتابع التنفيذ داخل قطر','موقع بناء يستمر 14 شهراً بفريق ومعدات','مكتب مستأجر تُدار منه العمليات اليومية للمشروع'],
+ 'نصت الفقرة 3 من المادة 1 من اللائحة على أن المنشأة الدائمة <b>لا تشمل</b> استخدام المرافق فقط لتخزين السلع أو عرضها، أو الاحتفاظ بمكان لشرائها أو جمع المعلومات، أو أي نشاط <b>تحضيري أو مساعد</b>. أما إدارة المشروع والتفاوض والموقع الممتد ومكتب العمليات فمؤشرات منشأة دائمة.',
+ 'الوحدة 2.1 · البند 2.3 (الحالات المستثناة)'),
+S('2k8','class','M1','أي الممارسات التالية تُعد من صور التهرب الضريبي؟',
+ ['إخفاء وجود منشأة دائمة لشركة غير مقيمة رغم وجود نشاط فعلي ومستمر في قطر','دراسة ما إذا كانت الخدمات ستنفذ داخل قطر أو خارجها قبل توقيع العقد','الاستفادة من المصاريف القابلة للخصم وفق القانون','دراسة أثر اتفاقية ضريبية مع دولة إقامة الشركة'],
+ 'من صور التهرب الشائعة عدم تسجيل الإيرادات، والمصاريف غير الحقيقية، والفواتير الصورية، و<b>إخفاء وجود منشأة دائمة</b> رغم النشاط الفعلي المستمر. أما الخيارات الأخرى فأدوات تخطيط مشروع.',
+ 'الوحدة 1 · البنود 4.2 و4.3 و4.5.1'),
+S('2k9','class','M2','أي البنود التالية يُصنَّف مصروفاً تشغيلياً يُخصم مباشرة؟',
+ ['صيانة دورية للآلات','تطوير شامل لخط الإنتاج يزيد عمره وكفاءته','شراء خط إنتاج جديد','تكاليف إنشاء مصنع جديد'],
+ '<b>الصيانة الدورية</b> مصروف تشغيلي يُخصم مباشرة. أما التطوير الذي يزيد عمر الأصل أو كفاءته وشراء الأصول وإنشاؤها فهي بنود رأسمالية تُعالج كأصول تُهلك على سنوات.',
+ 'الوحدة 2.1 · البند 5.5.3'),
+S('2k10','class','M2','شركة أجنبية تملك عقاراً تجارياً في الدوحة وتؤجره لشركات محلية، وتُحوَّل الإيجارات إلى حسابها البنكي خارج قطر. كيف يُصنَّف هذا الدخل؟',
+ ['دخل متحقق من مصدر داخل قطر قد يخضع للضريبة','دخل أجنبي لأنه يُستلم خارج قطر','دخل غير خاضع لأن المالك شركة أجنبية','دخل معفى بنص المادة 4'],
+ 'رغم استلام الأموال خارج قطر، فإن <b>مصدر الدخل عقار موجود داخل الدولة</b> والنشاط مرتبط بالسوق القطري، فيُعد الدخل متحققاً من مصدر قطري. ومكان الحساب البنكي لا يحسم المصدر.',
+ 'الوحدة 2.1 · البند 3.2 (مثال العقار)'),
+S('2k11','class','M1','«الشخص الذي لا يقيم في الدولة لكنه يحقق دخلاً منها». إلى أي فئة ينتمي هذا الوصف؟',
+ ['غير المقيم','المقيم','الشخص الملزم بالتحصيل','المستهلك النهائي'],
+ '<b>غير المقيم</b> هو من لا يقيم في الدولة لكنه يحقق دخلاً منها، ويُستخدم هذا التصنيف أساساً في ضريبة الدخل لتحديد نطاق الخضوع.',
+ 'الوحدة 1 · البند 3.5'),
+S('2k12','class','M2','مبلغ حصّلته شركة نيابة عن طرف آخر وستحوّله إليه. كيف يُصنَّف لأغراض ضريبة الدخل؟',
+ ['لا يُعد دخلاً للشركة من الأصل','دخل تشغيلي خاضع للضريبة','دخل معفى بنص قانوني يحتاج إثباتاً','ربح رأسمالي'],
+ 'وفق المادة 4 من القانون بعض المبالغ <b>لا تُعد دخلاً خاضعاً من الأصل</b>، ومنها <b>المبالغ المحصلة بالنيابة عن الغير</b>. ومن الأخطاء الشائعة معاملة كل الإيرادات المحاسبية كأنها خاضعة.',
+ 'الوحدة 2.1 · البندان 3.1 و3.3'),
+
+T('2t1','calc','M2','الوحدة 2.1 · البند 3.4 (دراسة حالة المعدات) والبند 5.5.4',function(){
+ var C=R(10,40)*1000000,Tx=Math.round(C*R(30,60)/100/100000)*100000,A=Tx+R(2,10)*500000;
+ if(A>=C)return null;
+ var tv=C-Tx,Sp=tv+R(1,10)*500000,gain=Sp-tv,acc=Sp-(C-A);
+ return {q:'باعت شركة معدات إنتاج بسعر '+M(Sp)+'. تكلفتها '+M(C)+'، والإهلاك المحاسبي المتراكم '+M(A)+'، والإهلاك المقبول ضريبياً المتراكم '+M(Tx)+'. كم الربح الرأسمالي الخاضع للضريبة؟',
+ o:[M(gain),M(acc),M(Sp),M(gain/10)],
+ ex:'القيمة الضريبية المتبقية = التكلفة − الإهلاك المقبول ضريبياً = '+F(C)+' − '+F(Tx)+' = '+F(tv)+'. الربح الضريبي = سعر البيع − القيمة الضريبية = '+F(Sp)+' − '+F(tv)+' = <b>'+M(gain)+'</b>. أما '+F(acc)+' فهو الربح المحاسبي (سعر البيع − القيمة الدفترية '+F(C-A)+')، و'+F(gain/10)+' مقدار الضريبة لا الربح.'};}),
+T('2t2','calc','M2','الوحدة 2.1 · البندان 5.2.1 و5.3.4 (المادة 8 بندا 1 و2 من اللائحة)',function(){
+ var I=R(10,22)*1000000,H=R(55,90)*10000,dc=I*0.03,D=dc+R(5,25)*10000,ha=H-500000,da=D-dc,add=ha+da;
+ return {q:'صافي دخل شركة قبل خصم الضيافة والتبرعات '+M(I)+'. أنفقت '+M(H)+' على الضيافة والترفيه داخل قطر، وتبرعت بمبلغ '+M(D)+' لجمعية خيرية مرخصة في قطر. كم المبلغ الإجمالي الذي يُضاف إلى الوعاء؟',
+ o:[M(add),M(ha),M(da),M(H-I*0.02+da)],
+ ex:'<b>الضيافة:</b> الحد هو الأعلى بين 2% × '+F(I)+' = '+F(I*0.02)+' و500,000، أي 500,000؛ يُضاف '+F(H)+' − 500,000 = '+F(ha)+'. <b>التبرعات:</b> الحد 3% × '+F(I)+' = '+F(dc)+'؛ يُضاف '+F(D)+' − '+F(dc)+' = '+F(da)+'. المجموع = <b>'+M(add)+'</b>.'};}),
+T('2t3','calc','M2','الوحدة 2.1 · البند 5.6.1 الفرق بين الخسارة المحاسبية والضريبية',function(){
+ var L=R(10,40)*100000,Fi=R(4,18)*50000,Pv=R(5,30)*100000,X=R(2,12)*50000,res=-L+Fi+Pv+X;
+ if(res<=0)return null;
+ return {q:'أظهرت قوائم شركة خسارة محاسبية قدرها '+M(L)+'. وعند الفحص تبيّن وجود: غرامات '+M(Fi)+'، ومخصص ديون تقديري غير مقبول '+M(Pv)+'، ومصاريف شخصية للشركاء '+M(X)+'. ما النتيجة الضريبية؟',
+ o:['ربح ضريبي '+M(res)+' وضريبة '+M(res/10),'خسارة ضريبية '+M(L)+' ولا ضريبة','ربح ضريبي '+M(Fi+Pv+X)+' وضريبة '+M((Fi+Pv+X)/10),'خسارة ضريبية '+M(L-Fi)+' ولا ضريبة'],
+ ex:'تُضاف البنود غير المقبولة إلى النتيجة المحاسبية: −'+F(L)+' + '+F(Fi)+' + '+F(Pv)+' + '+F(X)+' = <b>+'+F(res)+' ربح ضريبي</b>، والضريبة × 10% = '+M(res/10)+'. فالخسارة في الدفاتر لا تعني بالضرورة عدم وجود ضريبة.'};}),
+T('2t4','calc','M2','الوحدة 2.1 · البند 5.3.2 (المادة 8 من القانون)',function(){
+ var a=R(8,30)*10000,v=R(20,60)*10000,c=R(10,40)*10000,s=a+v+c;
+ return {q:'سجّلت شركة ضمن مصاريفها الإدارية: سفراً عائلياً لأحد الشركاء '+M(a)+'، وإيجار فيلا سكنية خاصة '+M(v)+'، ومصاريف سيارات شخصية '+M(c)+'. بكم تزيد ضريبة الدخل المستحقة عند رفض هذه المصاريف؟',
+ o:[M(s/10),M(s),M(s/20),'لا شيء (صفر)'],
+ ex:'هذه مصاريف شخصية لا ترتبط بالنشاط فتُرفض، ويُضاف مجموعها '+F(s)+' إلى الوعاء، فتزيد الضريبة بمقدار '+F(s)+' × 10% = <b>'+M(s/10)+'</b>. (المبلغ '+F(s)+' هو الزيادة في الوعاء لا في الضريبة).'};}),
+T('2t5','calc','M2','الوحدة 2.1 · البندان 3.5 و3.6 (مبدأ الاستحقاق ومعيار IFRS 15)',function(){
+ var V=R(10,40)*2000000,p=pick([20,25,30,35,40]),rc=Math.round(V*R(45,70)/100/1000000)*1000000,rev=V*p/100;
+ return {q:'وقّعت شركة هندسية عقد تصميم وإشراف بقيمة '+M(V)+' لمدة سنتين، وحصّلت خلال السنة الأولى '+M(rc)+'، بينما بلغت نسبة الإنجاز الفعلية '+p+'%. ما الإيراد المرتبط بالأعمال المنجزة في السنة الأولى، بتطبيق نسبة الإنجاز وفق مبدأ الاستحقاق؟',
+ o:[M(rev),M(rc),M(rc*p/100),M(V/2)],
+ ex:'الدخل يرتبط بالأعمال المنفذة فعلاً لا بالنقد المحصّل: '+p+'% × '+F(V)+' = <b>'+M(rev)+'</b>. وإدراج كامل المحصّل يضخّم الوعاء، ونصف العقد يفترض إنجازاً متساوياً، وتطبيق النسبة على النقد خطأ.'};}),
+T('2t6','calc','M2','الوحدة 2.1 · البند 2.5 والبند 2.5.1 (المادة 23 من اللائحة) ومثال «خطأ شائع في التطبيق»',function(){
+ var x=R(20,300)*10000;
+ return {q:'دفعت شركة قطرية '+M(x)+' مقابل خدمات لشركة أجنبية مسجّلة ضريبياً في قطر، لها منشأة دائمة قائمة وبطاقة ضريبية وتقدّم إقرارات سنوية، والخدمات مرتبطة بنشاط المنشأة. كم تستقطع من المنبع؟',
+ o:['لا شيء، فالمدفوعات لمنشأة دائمة لها بطاقة ضريبية لا تخضع للاستقطاع',M(x*0.05),M(x*0.1),M(x*0.95)],
+ ex:'وفق المادة 23 من اللائحة <b>لا يُستقطع</b> من المبالغ المدفوعة لمن صدرت له بطاقة ضريبية، ومنها المنشأة الدائمة لغير المقيم، وأرباحها تخضع لضريبة الدخل 10% على الصافي عبر إقرارها. واستقطاع 5% ('+M(x*0.05)+') هنا خطأ شائع يسبب ازدواجاً ضريبياً.'};}),
+T('2t7','calc','M2','الوحدة 2.1 · البند 5.6.2 (البند 4 من المادة 5 من اللائحة)',function(){
+ var y=pick([2023,2024]),L=R(10,24)*500000,P=R(2,L/500000-2)*500000,rem=L-P;
+ return {q:'حققت شركة خسارة ضريبية قدرها '+M(L)+' في '+y+'، ثم ربحاً ضريبياً قدره '+M(P)+' في '+(y+1)+'. ما رصيد الخسارة الذي يُرحَّل إلى '+(y+2)+'؟',
+ o:[M(rem),M(L),M(P),'لا شيء، فالخسارة لا تُرحَّل'],
+ ex:'تُخصم الخسارة من ربح '+(y+1)+' فيصبح وعاؤها صفراً، ويتبقى '+F(L)+' − '+F(P)+' = <b>'+M(rem)+'</b> يُرحَّل ضمن مدة الخمس سنوات التي تبدأ بعد '+y+' (أي حتى '+(y+5)+').'};}),
+T('2t8','calc','M2','الوحدة 2.1 · البند 1.4 وجدول إعفاءات المادة 4؛ الوحدة 1 · البند 5.2.3',function(){
+ var q=pick([51,60,65,70,75]),P=R(4,30)*500000,f=100-q,tax=P*f/100*0.1;
+ return {q:'شركة ذات مسؤولية محدودة في الدوحة يملكها مواطن قطري بنسبة '+q+'% وشريك أجنبي من خارج دول مجلس التعاون بنسبة '+f+'%، وربحها الخاضع '+M(P)+'. كم ضريبة الدخل المستحقة؟',
+ o:[M(tax),M(P/10),M(P*q/100*0.1),'لا شيء، لأن الشركة قطرية'],
+ ex:'دخل الأشخاص الطبيعيين القطريين المقيمين معفى ويشمل حصصهم في الشركات، فتُحسب الضريبة على <b>حصة الشريك غير القطري</b>: '+F(P)+' × '+f+'% = '+F(P*f/100)+'، والضريبة × 10% = <b>'+M(tax)+'</b>. ولهذا يتضمن الإقرار الضريبي بند «حصة الشريك غير القطري».'};})
+];
+
+/* ================= LEVEL 3 bank ================= */
+var B3=[
+S('3c1','concept','M2','استقطعت شركة قطرية 5% من جميع مدفوعاتها لشركة أجنبية مسجّلة ضريبياً في قطر، لها منشأة دائمة قائمة وتقدّم إقرارات سنوية. ما تقييم هذه المعالجة؟',
+ ['غير دقيقة: أرباح المنشأة الدائمة تخضع لـ 10% على الصافي، والاستقطاع عليها قد يسبب ازدواجاً ضريبياً','صحيحة، لأن كل غير مقيم يخضع للاستقطاع تلقائياً','صحيحة، بشرط أن تخصم المنشأة الاستقطاع من ضريبتها السنوية','واجبة، لأن المنشأة الدائمة لا تُعد مكلفاً في قطر'],
+ 'وجود منشأة دائمة <b>يغيّر التصنيف</b>: المدفوعات المرتبطة بها تخضع لنظام ضريبة الدخل العادي لا للاستقطاع، والمادة 23 تستثني المدفوعات لمن لديه بطاقة ضريبية. والخطأ يؤدي إلى ازدواج ضريبي وطلبات استرداد وخلاف مع الهيئة.',
+ 'الوحدة 2.1 · البندان 2.5 و2.5.1 ومثال «خطأ شائع في التطبيق»'),
+S('3c2','concept','M2','حصلت شركة على إعفاء مرتبط بمشروع صناعي، ثم بدأت تؤجّر جزءاً من مرافقها وتقدّم استشارات لشركات أخرى، واستمرت تعامل كل إيراداتها كمعفاة. ما الصحيح؟',
+ ['الفصل بين إيرادات النشاط المعفى والأنشطة الجديدة، وتوزيع المصاريف المشتركة، وإخضاع الإيرادات غير المشمولة بالإعفاء','كل الإيرادات معفاة طالما الترخيص والكيان القانوني قائمان','يسقط الإعفاء عن جميع الإيرادات بأثر رجعي منذ بدايته','تخضع كل الإيرادات لاستقطاع 5% بدلاً من ضريبة الدخل'],
+ 'الإعفاء <b>محدود بنطاقه</b> ويحتاج استمرار شروطه، ووجود نشاط معفى لا يجعل كل الأعمال معفاة. يجب الفصل بين الإيرادات، وتحليل المصاريف المشتركة، واستبعاد مصاريف النشاط المعفى. وعدم الفصل قد يؤدي إلى إعادة احتساب الوعاء وضريبة إضافية وغرامات.',
+ 'الوحدة 2.1 · البنود 4.2 و4.3 و4.4'),
+S('3c3','concept','M1','ما المقصود بتركيز النظام الضريبي القطري على «الدخل المتحقق داخل الدولة» (مبدأ إقليمية الضريبة)؟',
+ ['تُفرض الضريبة على الدخل المتحقق من مصادر داخل قطر بغض النظر عن مكان إقامة المكلف في بعض الحالات، مع خضوع بعض الدخول المتحققة في الخارج','تُفرض الضريبة على الدخل العالمي للمقيمين وحدهم','تُفرض الضريبة على المواطنين القطريين أينما كانوا','تُفرض الضريبة على الشركات المسجلة في قطر فقط دون غيرها'],
+ 'النظام يعتمد <b>مبدأ إقليمية الضريبة</b>: الخضوع مرتبط بمصدر الدخل داخل قطر لا بإقامة المكلف أو جنسيته، ولذلك قد يخضع غير المقيم. ومع ذلك يمتد الخضوع في حالات لبعض الدخول المتحققة في الخارج (مثل المادة 2 مكرراً للمشروع القطري).',
+ 'الوحدة 1 · البند 3.2.3؛ الوحدة 2.1 · مقدمة الفصل الأول'),
+S('3c4','concept','M2','شركة قابضة أجنبية باعت حصتها في شركة تعمل داخل قطر لمستثمر جديد، وتم العقد والسداد خارج قطر. ما التحليل الصحيح؟',
+ ['لا يتوقف التحليل عند الشكل؛ يُدرس ما إذا كانت الصفقة تنقل قيمة اقتصادية مرتبطة بأعمال وأصول داخل قطر، مع أثر الاتفاقيات','لا أثر ضريبي في قطر لأن العقد والسداد تمّا في الخارج','تخضع الصفقة دائماً بنسبة 35%','الربح معفى لأن البائع شركة أجنبية'],
+ 'التحليل الضريبي <b>لا يتوقف عند الشكل القانوني</b>: يُدرس طبيعة الأصول والأعمال التي تمثل القيمة الحقيقية للشركة، وارتباطها بالسوق القطري، وما إذا كانت الصفقة تنقل عملياً قيمة اقتصادية مرتبطة بقطر، وأثر الاتفاقيات.',
+ 'الوحدة 2.1 · البند 3.4 (مثال الشركة القابضة) والبند 3.9'),
+S('3c5','concept','M2','ما الدور الصحيح لاتفاقيات تجنب الازدواج الضريبي مقارنة بالإعفاء المحلي؟',
+ ['تنظّم توزيع حق فرض الضريبة بين الدولتين، وقد تخفّض النسبة أو تربط المعالجة بوجود منشأة دائمة وبشروط إثبات','تلغي أي ضريبة في قطر على دخل المقيم في الدولة الأخرى','تلغي تطبيق القانون المحلي بالكامل','تعفي جميع المدفوعات لغير المقيمين من الاستقطاع'],
+ 'الإعفاء المحلي يمنحه القانون القطري، أما الاتفاقية فهدفها <b>تنظيم توزيع الحق في فرض الضريبة</b> ومنع الازدواج، فقد تخفّض النسبة أو تحدد الدولة صاحبة الحق أو تضع شروطاً، ولا تؤدي دائماً إلى إعفاء كامل.',
+ 'الوحدة 2.1 · البند 4.5'),
+S('3c6','concept','M2','شركة في قطر دفعت للشركة الأم في الخارج رسوم إدارة واستشارات كبيرة، ولم تقدّم عند الفحص تقارير أو مراسلات أو أدلة على طبيعة الخدمات. ما الذي قد تفعله الهيئة؟',
+ ['رفض الخصم كلياً أو جزئياً، أو إعادة توصيف المعاملة، أو طلب دراسة تسعير تحويل','قبول المصروف تلقائياً لأن الدفع تم فعلاً','قبول المصروف إذا كان مسجلاً في الدفاتر','تحويل المبلغ إلى إيراد معفى'],
+ 'قبول المصروف لا يعتمد على القيد المحاسبي بل على <b>المغزى منه وعلاقته بالنشاط والتوثيق الكافي</b>. ومع غياب الأدلة قد ترفض الهيئة الخصم كلياً أو جزئياً، أو تعيد توصيف المعاملة، أو تطلب دراسة تسعير تحويل.',
+ 'الوحدة 2.1 · البندان 5.3.5 و5.7.1'),
+S('3c7','concept','M2','أبرمت شركة تقنية عقداً لثلاث سنوات يشمل توريد نظام وتحديثات وصيانة ودعماً مستمراً، وأصدرت فاتورة بكامل قيمة العقد عند بداية التنفيذ. متى يتحقق الإيراد ضريبياً؟',
+ ['يُدرس ما تحقق فعلاً والالتزامات المتبقية؛ فالجزء المرتبط بخدمات مستقبلية يتوزع على الفترات اللاحقة','كاملاً في سنة إصدار الفاتورة','كاملاً في سنة التحصيل النقدي','كاملاً في نهاية السنوات الثلاث'],
+ 'وفق معيار IFRS 15 لا يُربط توقيت الإيراد <b>تلقائياً</b> بتاريخ الفاتورة أو التحصيل أو توقيع العقد، بل تُدرس الأعمال المنفذة والالتزامات المتبقية والحق الاقتصادي الفعلي، وقد يختلف التوقيت بين عناصر العقد الواحد.',
+ 'الوحدة 2.1 · البند 3.6 (ملاحظة IFRS 15)'),
+S('3c8','concept','M2','أعادت شركة تقييم عقار استثماري بالقيمة العادلة فظهر ربح محاسبي كبير، دون أن تبيعه. ما التحليل الضريبي الأدق؟',
+ ['يُدرس هل تحقق الربح فعلاً؛ فالزيادة الناتجة عن إعادة التقييم لا تخضع ما لم تتحقق بتصرف فعلي','تخضع كل أرباح إعادة التقييم تلقائياً للضريبة','يُخصم الربح من الوعاء كخسارة','تُعامل الزيادة كإيراد تشغيلي'],
+ 'الخضوع الضريبي يرتبط بالأرباح <b>المحققة فعلياً</b> من التصرف في الأصل، ولا يشمل الزيادة الناتجة عن إعادة التقييم ما لم تتحقق من خلال تصرف فعلي. لذلك يجب التمييز بين المعترف به محاسبياً والمعترف به ضريبياً.',
+ 'الوحدة 2.1 · البندان 3.4 و3.8'),
+
+S('3k1','class','M2','عقد واحد بفاتورة واحدة مع شركة أجنبية يشمل: توريد أجهزة، وتركيباً بفريق بقي في قطر 10 أشهر، وترخيص استخدام برامج الشركة، ودعماً فنياً لثلاث سنوات. ما المعالجة الصحيحة؟',
+ ['تفكيك العقد: الترخيص قد يكون إتاوة، والتركيب الممتد قد يكوّن منشأة دائمة، والدعم يتوزع على سنواته','معاملة العقد بنداً واحداً لأنه بفاتورة واحدة','إخضاع كامل قيمة العقد لاستقطاع 5%','إعفاء العقد كله لأن جزءاً منه نُفذ من الخارج'],
+ 'العقود متعددة العناصر <b>تُفصل عناصرها</b> لأن لكل عنصر معالجة مختلفة: التوريد، والخدمات المنفذة في قطر (وقد تكوّن منشأة دائمة إذا تجاوزت المدد)، ومقابل حق الاستخدام (إتاوة محتملة)، والخدمات المستقبلية. والفاتورة الواحدة لا تمنع التحليل.',
+ 'الوحدة 2.1 · البندان 3.3 و3.5 والبند 3.9'),
+S('3k2','class','M2','شركة أجنبية قدّمت خدمة نُفذت بالكامل خارج قطر لعميل أجنبي آخر، دون أي نشاط أو عميل أو ارتباط بالسوق القطري. كيف يُصنَّف دخلها في قطر؟',
+ ['دخل غير خاضع للضريبة من الأصل','دخل معفى بنص المادة 4','دخل خاضع لاستقطاع 5%','دخل خاضع لكن يُؤجَّل للسنة التالية'],
+ 'هذا مثال الوحدة على الدخل <b>غير الخاضع</b>: شروط الخضوع لم تتحقق أصلاً لعدم الارتباط بقطر، فلا حاجة لنص إعفاء. والمعفى يكون داخل النطاق ويحتاج نصاً صريحاً. ومع ذلك يُتحقق من أن الخدمة لا يُنتفع بها داخل قطر.',
+ 'الوحدة 2.1 · البند 4.1 (المثال الأول)'),
+S('3k3','class','M2','شركة قطرية تدفع إتاوات لشركة أجنبية، ودولة الشركة الأجنبية لها اتفاقية مع قطر تخفّض نسبة الاستقطاع، لكن الشركة الأجنبية لم تقدّم شهادة إقامة ضريبية. ما المعالجة الأسلم للشركة القطرية؟',
+ ['تستقطع 5% كاملة وتورّدها، ثم يطلب المستفيد الاسترداد وفق آلية «ادفع ثم استرد» بعد تقديم المستندات','تطبّق النسبة المخفضة مباشرة لأن الاتفاقية موجودة','لا تستقطع شيئاً لأن الاتفاقية تعفي الإتاوات تلقائياً','تؤجل الدفع حتى تُلغى الاتفاقية'],
+ 'الاستفادة من الاتفاقية تتطلب <b>استيفاء المتطلبات الشكلية</b> كشهادة الإقامة وإثبات المستفيد الحقيقي، والمخاطرة عند تطبيق نسبة غير صحيحة تقع على <b>الشركة القطرية الدافعة</b>. وقطر تطبق غالباً «ادفع ثم استرد»، ويجوز التطبيق المباشر في حالات عبر نظام المدين المعتمد.',
+ 'الوحدة 2.1 · البندان 4.2 و4.5'),
+S('3k4','class','M2','أي المخصصات التالية يجيز القانون خصمه ضريبياً عند تكوينه؟',
+ ['مخصص الديون المشكوك فيها لدى بنك، وفق ضوابط مصرف قطر المركزي','مخصص «مخاطر عامة» لشركة مقاولات دون تحليل أو مستندات','مخصص قضية تعويض ما زالت في مراحلها الأولى','مخصص ديون مشكوك فيها لشركة تجارية مبني على تقديرات داخلية'],
+ 'الأصل <b>عدم خصم المخصصات عند تكوينها</b> إلا ما نص عليه القانون واللائحة صراحة. والمادة 13 من اللائحة تقبل خصم مخصصات الديون المشكوك فيها <b>للبنوك وشركات التمويل فقط</b> وفق ضوابط مصرف قطر المركزي.',
+ 'الوحدة 2.1 · البنود 5.4 و5.4.2 و5.4.3'),
+S('3k5','class','M1','شركة مسجّلة لدى الهيئة أعدّت حساباتها السنوية، لكنها لم تحتفظ بمستندات لبعض المصاريف، وقدّمت الإقرار بعد الموعد، وسددت الضريبة متأخرة. أي مراحل الامتثال أخلّت بها؟',
+ ['الاحتفاظ بالسجلات والمستندات، وتقديم الإقرار في موعده، والسداد في موعده','التسجيل الضريبي فقط','لم تخلّ بأي مرحلة لأنها قدّمت الإقرار وسددت في النهاية','الفحص والتدقيق الضريبي'],
+ 'التزمت الشركة <b>بالتسجيل</b> وأخلّت بثلاث: <b>الاحتفاظ بالمستندات</b> (فقد تُرفض المصاريف غير المؤيدة)، و<b>الإقرار في موعده</b>، و<b>السداد في موعده</b>، وقد تترتب غرامات وإعادة ربط. أما الفحص فدور الهيئة.',
+ 'الوحدة 1 · البندان 5.2 و5.4'),
+S('3k6','class','M2','شركة أجنبية تعتمد على اتفاقية ضريبية لعدم تطبيق الاستقطاع على مدفوعات خدمات تقنية، لكن تبيّن أن لها فريق دعم فني دائماً ومكتباً لإدارة العملاء في قطر، وتنفّذ جزءاً من الخدمات داخلها. كيف تُصنَّف حالتها؟',
+ ['قد تُعد مالكة لمنشأة دائمة في قطر، فتخضع أرباح النشاط لضريبة الدخل وفق القانون والاتفاقية','تبقى خارج نطاق الضريبة لوجود الاتفاقية','تخضع للاستقطاع فقط مهما كان وجودها في قطر','تُعد مقيمة ضريبياً في قطر'],
+ 'الاتفاقيات لا تُطبق بصورة شكلية: <b>الفريق الدائم والمكتب وتنفيذ الخدمات داخل الدولة</b> مؤشرات منشأة دائمة، وعندها تصبح الأرباح المرتبطة بالنشاط خاضعة لضريبة الدخل وليس فقط للاستقطاع، مع دراسة شروط الاتفاقية والمتطلبات الإثباتية.',
+ 'الوحدة 2.1 · البندان 4.5 و4.6'),
+S('3k7','class','M2','شركة أجنبية تقدّم خدمات تشغيل وصيانة داخل قطر عبر عقود قصيرة تُجدَّد باستمرار، وموظفين يدخلون الدولة لفترات متقطعة، وفواتير تصدرها شركة محلية مرتبطة. كيف قد تُصنّف الهيئة هذا الترتيب؟',
+ ['قد تعيد تقييم النشاط وفق جوهره واستمراريته، وتعتبره منشأة دائمة إن كان النشاط الفعلي أوسع من الشكل التعاقدي','تقبل الشكل التعاقدي كما هو لأن كل عقد قصير','تعتبره غير خاضع لأن الموظفين لا يقيمون بصفة دائمة','تعتبر الشركة المحلية وحدها المكلفة دون تحليل'],
+ 'تقسيم العقود وتدوير الموظفين واستخدام شركات مرتبطة شكلياً من الترتيبات التي تهدف لتجنب المنشأة الدائمة، والهيئة <b>لا تكتفي بالشكل</b> بل تنظر إلى الجوهر واستمرارية الأعمال ومن يمارس النشاط والمستفيد الحقيقي.',
+ 'الوحدة 2.1 · البند 2.3 والحالة «هيكلة تعاقدية لتجنب المنشأة الدائمة»'),
+S('3k8','class','M2','أنهى عميل عقد مشروع قبل اكتماله، واتُّفق على تعويض الشركة المنفذة. كيف يُصنَّف التعويض ضريبياً؟',
+ ['تُدرس طبيعته أولاً: هل يعوّض أرباحاً تشغيلية مفقودة، أم مقابل إنهاء حق تعاقدي، أم عن أعمال منفذة، أم عن أضرار أخرى','يُدرج تلقائياً ضمن الإيرادات التشغيلية','يُعد معفى دائماً لأنه تعويض','يُعامل كقرض يُرد لاحقاً'],
+ 'التعويض <b>لا يُدرج تلقائياً</b> إيراداً؛ فسبب استحقاقه وطبيعة الحق أو الضرر وعلاقته بالنشاط الخاضع وارتباطه بأصل رأسمالي أو نشاط تشغيلي كلها تؤثر في معالجته.',
+ 'الوحدة 2.1 · البند 3.7 (مثال إنهاء العقد)'),
+S('3k9','class','M2','سجّلت شركة مخصص نهاية خدمة كبيراً، جزء منه لموظفين لم يستوفوا شروط الاستحقاق وجزء يعتمد على افتراضات طويلة الأجل. ما المعالجة الضريبية الأدق؟',
+ ['يُقبل ما دُفع فعلاً أو ما استوفى شروط الخصم المقررة، لا مجرد القيد المحاسبي','يُقبل المخصص بالكامل لأنه التزام قانوني على الشركة','يُرفض المخصص بالكامل ولا يُقبل أي مبلغ مدفوع منه','يُعامل كاحتياطي ضمن حقوق الملكية'],
+ 'التحليل الضريبي لمخصص نهاية الخدمة يمتد إلى التحقق من <b>المبالغ المدفوعة فعلاً</b> (وهي مقبولة) أو التي تستوفي شروط الخصم المقررة، إذ إن مجرد تكوين المخصص محاسبياً لا يعني قابليته للخصم.',
+ 'الوحدة 2.1 · البند 5.4.4'),
+S('3k10','class','M2','اشترت شركة يختاً فاخراً وسيارات رياضية، وتبيّن عند الفحص أن استخدامها شخصي وترفيهي للشركاء. كيف يُعامل إهلاكها ومصاريف تشغيلها؟',
+ ['يُرفض الإهلاك والمصاريف المرتبطة بها بالكامل','يُقبل الإهلاك ويُرفض التشغيل فقط','يُقبل كل شيء لأنها مسجلة باسم الشركة','يُقبل 50% منها كمصاريف ضيافة'],
+ 'الأصول غير المستخدمة في النشاط أو ذات الطبيعة الشخصية <b>يُرفض إهلاكها ومصاريفها</b>، وفي مثال الوحدة تقرر رفض كلٍّ من الإهلاك والمصاريف المرتبطة بالأصل بالكامل.',
+ 'الوحدة 2.1 · البند 5.5.5'),
+S('3k11','class','M2','سجّلت شركة 11,500,000 ريال «خدمات استراتيجية» مدفوعة لجهة مرتبطة خارج قطر، دون عقود واضحة أو أوراق عمل تثبت تنفيذ الخدمة. كيف تُصنَّف المعاملة؟',
+ ['معاملة غير مدعومة مستندياً قد يُرفض خصمها بالكامل، وتُعد مؤشراً على ممارسة غير سليمة','تخطيط ضريبي مشروع لأن المبلغ دُفع فعلاً','مصروف مقبول طالما الجهة المرتبطة أصدرت فاتورة','دخل معفى للشركة القطرية'],
+ 'من أكبر المخاطر <b>قيود أو تحويلات بين أطراف مرتبطة دون عقود أو مستندات</b>، وقد يُرفض الخصم بالكامل. والمعاملات غير المدعومة واستخدام أطراف مرتبطة دون مبرر من مؤشرات الممارسات غير السليمة.',
+ 'الوحدة 2.1 · البند 5.7.4؛ الوحدة 1 · البند 4.5'),
+
+T('3t1','calc','M2','الوحدة 2.1 · البندان 5.1 و5.2 والحالة الشاملة 5.8',function(){
+ var P=R(15,40)*1000000,A=R(10,18)*500000,Tx=A-R(2,6)*500000,Pr=R(4,12)*500000,PrA=R(1,Pr/500000-2)*500000,Fi=R(2,15)*100000,E=R(1,6)*500000,Lc=R(2,8)*1000000;
+ var base=P+(A-Tx)+(Pr-PrA)+Fi-E-Lc,tax=base/10;
+ return {q:'بيانات شركة لسنة 2025 (بالريال):',
+ d:[['صافي الربح المحاسبي',F(P)],['الإهلاك المحاسبي / المقبول ضريبياً',F(A)+' / '+F(Tx)],['مخصص ديون مشكوك فيها / المقبول منه',F(Pr)+' / '+F(PrA)],['غرامات ومخالفات',F(Fi)],['إيراد استثمار معفى ضمن الربح',F(E)],['خسائر ضريبية مرحّلة ضمن المدة',F(Lc)]],
+ q2:'كم ضريبة الدخل المستحقة؟',
+ o:[M(tax),M((base+Lc)/10),M((base+E)/10),M((P-Lc)/10)],
+ ex:F(P)+' + فرق الإهلاك '+F(A-Tx)+' + مخصص غير مقبول '+F(Pr-PrA)+' + غرامات '+F(Fi)+' − إيراد معفى '+F(E)+' = '+F(base+Lc)+'، ثم − خسائر مرحّلة '+F(Lc)+' = <b>'+F(base)+'</b>، والضريبة × 10% = <b>'+M(tax)+'</b>. الخيارات الأخرى: نسيان خصم الخسائر، أو نسيان استبعاد الإيراد المعفى، أو تجاهل كل التعديلات.'};}),
+T('3t2','calc','M2','الوحدة 2.1 · البندان 5.3.5 و5.7.5 والسؤال التحليلي للفصل الخامس',function(){
+ var Mf=R(6,24)*500000,Dc=R(2,Mf/500000-2)*500000,w=Mf*0.05,add=Mf-Dc;
+ return {q:'دفعت شركة قطرية '+M(Mf)+' «رسوم إدارة» لشركتها الأم غير المقيمة، عن خدمات منجزة جزئياً في قطر ولا ترتبط بمنشأة دائمة، ولا توجد اتفاقية. ولم تثبت المستندات إلا خدمات بقيمة '+M(Dc)+'. ما الأثر الصحيح؟',
+ o:['استقطاع '+M(w)+'، وإضافة '+M(add)+' إلى الوعاء','استقطاع '+M(Dc*0.05)+'، وإضافة '+M(add)+' إلى الوعاء','استقطاع '+M(w)+'، دون أي إضافة إلى الوعاء','لا استقطاع، وإضافة '+M(Mf)+' إلى الوعاء'],
+ ex:'أثران منفصلان: (1) <b>الاستقطاع</b> على إجمالي المبلغ المدفوع لغير المقيم: '+F(Mf)+' × 5% = '+F(w)+'. (2) <b>رفض الجزء غير الموثق</b>: '+F(Mf)+' − '+F(Dc)+' = '+F(add)+' يُضاف للوعاء. ومقدار ما يُقبل خصمه لا يغيّر أساس الاستقطاع.'};}),
+T('3t3','calc','M2','الوحدة 2.1 · البند 5.6.2 وجدول «تطبيق متكامل لترحيل الخسائر»',function(){
+ var y=pick([2021,2022]),L1=R(6,12)*1000000,L2=R(2,5)*1000000,P3=R(2,(L1+L2)/1000000-3)*1000000,rem=L1+L2-P3,P4=rem+R(2,10)*1000000,tax=(P4-rem)/10;
+ return {q:'نتائج شركة الضريبية: خسارة '+M(L1)+' في '+y+'، وخسارة '+M(L2)+' في '+(y+1)+'، وربح '+M(P3)+' في '+(y+2)+'، وربح '+M(P4)+' في '+(y+3)+'. كم ضريبة سنة '+(y+3)+'؟',
+ o:[M(tax),M(P4/10),M(Math.max(0,P4-L1-L2)/10),M((P3+P4)/10)],
+ ex:'رصيد الخسائر بعد '+(y+1)+' = '+F(L1+L2)+'. في '+(y+2)+' يُستخدم '+F(P3)+' (الوعاء صفر) فيبقى '+F(rem)+'. في '+(y+3)+': الوعاء = '+F(P4)+' − '+F(rem)+' = '+F(P4-rem)+'، والضريبة = <b>'+M(tax)+'</b>. وكل الخسائر ما زالت ضمن مدة الخمس سنوات.'};}),
+T('3t4','calc','M2','الوحدة 2.1 · البند 5.3.4 (المادة 8 بند 1 من اللائحة التنفيذية)',function(){
+ var I=R(25,60)*1000000,cap=I*0.02,O=R(12,20)*50000,In=R(4,16)*50000,H=In+O,el=In+Math.min(O,500000),ded=Math.min(cap,el),add=H-ded;
+ var cands=[O-500000,H-cap,H-500000,H,0].filter(function(v,i,a){return v>=0&&v!==add&&a.indexOf(v)===i;});
+ if(cands.length<3)return null;
+ return {q:'صافي دخل شركة قبل خصم الضيافة '+M(I)+'، وأنفقت '+M(H)+' على الضيافة والترفيه، منها '+M(O)+' خارج قطر. كم المبلغ غير القابل للخصم الذي يُضاف إلى الوعاء؟',
+ o:[M(add),M(cands[0]),M(cands[1]),M(cands[2])],
+ ex:'الحد العام = الأعلى من (2% × '+F(I)+' = '+F(cap)+') و500,000، أي '+F(cap)+'. والمنفق خارج قطر لا يُقبل منه أكثر من 500,000، فالمؤهل = '+F(In)+' داخل قطر + '+F(Math.min(O,500000))+' = '+F(el)+'. المقبول = الأقل بين السقف '+F(cap)+' والمؤهل '+F(el)+' = '+F(ded)+'. المضاف = '+F(H)+' − '+F(ded)+' = <b>'+M(add)+'</b>.'};}),
+T('3t5','calc','M2','الوحدة 2.1 · البندان 3.5 و3.6 (ملاحظة IFRS 15)',function(){
+ var V=R(15,40)*2000000,p=pick([15,20,25,30]),rc=Math.round(V*R(35,55)/100/1000000)*1000000,rev=V*p/100;
+ return {q:'وقّعت شركة عقد إشراف بقيمة '+M(V)+' لمدة ثلاث سنوات، وأصدرت فاتورة بكامل القيمة عند التوقيع، وحصّلت '+M(rc)+' في السنة الأولى، بينما بلغت نسبة الإنجاز الفعلية '+p+'%. ما الإيراد المرتبط بالأعمال المنجزة في السنة الأولى؟',
+ o:[M(rev),M(V),M(rc),M(Math.round(V/3))],
+ ex:'لا يُربط الإيراد تلقائياً بتاريخ الفاتورة أو التحصيل، بل بالأعمال المنفذة فعلاً: '+p+'% × '+F(V)+' = <b>'+M(rev)+'</b>. قيمة الفاتورة كاملة أو النقد المحصّل أو ثلث العقد لا تعكس الإنجاز الفعلي.'};}),
+T('3t6','calc','M2','الوحدة 2.1 · البند 5.7.3 (المادة 33 من القانون)',function(){
+ var Pn=R(5,30)*10000000,r=pick([10,11,12,13,14]),m=pick([5,6,7]),x=(r-m)/100*Pn;
+ return {q:'حصلت شركة قطرية على قرض بقيمة '+M(Pn)+' من شركتها الأم في الخارج بفائدة سنوية '+r+'%، بينما سعر السوق لقروض مماثلة بين أطراف مستقلة '+m+'%. كم مبلغ الفائدة السنوية الذي قد ترفض الهيئة خصمه؟',
+ o:[M(x),M(r/100*Pn),M(m/100*Pn),'لا شيء، فالفائدة موثقة بعقد'],
+ ex:'الفائدة المدفوعة = '+r+'% × '+F(Pn)+' = '+F(r/100*Pn)+'، والفائدة بسعر السوق = '+m+'% × '+F(Pn)+' = '+F(m/100*Pn)+'. وللهيئة وفق <b>المادة 33</b> ومبدأ المنافسة الكاملة رفض الجزء الزائد: <b>'+M(x)+'</b>. ووجود عقد لا يكفي إذا لم تعكس الشروط سعر السوق.'};}),
+T('3t7','calc','M2','الوحدة 2.1 · البنود 5.5.3 و5.5.6 ونموذج تسوية فروقات الإهلاك',function(){
+ var P=R(10,40)*1000000,Cx=R(4,16)*500000,rt=pick([10,20]),dx=Cx*rt/100,W=R(2,8)*500000,base=P+Cx-dx+W;
+ return {q:'صافي الربح المحاسبي لشركة '+M(P)+'، بعد أن حمّلت على المصروفات: تطويراً شاملاً لخط الإنتاج يزيد عمره وكفاءته بقيمة '+M(Cx)+'، وإهلاكاً بقيمة '+M(W)+' لمصنع تحت الإنشاء لم يبدأ تشغيله. إذا كان الإهلاك الضريبي المسموح لتطوير خط الإنتاج هذا العام '+M(dx)+'، فكم الوعاء المعدّل؟',
+ o:[M(base),M(P+Cx+W),M(P+Cx),M(P+W)],
+ ex:'التطوير الذي يزيد عمر الأصل أو كفاءته <b>رأسمالي</b>: يُضاف '+F(Cx)+' ويُخصم إهلاكه المسموح '+F(dx)+'. وإهلاك مشروع تحت التنفيذ <b>يُرفض</b> لأن الإهلاك لا يبدأ قبل جاهزية الأصل: يُضاف '+F(W)+'. الوعاء = '+F(P)+' + '+F(Cx)+' − '+F(dx)+' + '+F(W)+' = <b>'+M(base)+'</b>.'};}),
+T('3t8','calc','M2','الوحدة 2.1 · البند 5.6.2 (مثال انتهاء مدة الترحيل)',function(){
+ var L=R(8,15)*1000000,U=R(2,Math.floor(L/2000000)-1)*1000000,rem=L-U,x=R(1,U/1000000-1)*1000000,P=rem+x,tax=P/10;
+ return {q:'حققت شركة خسارة ضريبية قدرها '+M(L)+' في 2023، واستخدمت منها '+M(U)+' فقط في السنوات من 2024 إلى 2028 لقلة أرباحها. وفي 2029 حققت ربحاً ضريبياً قدره '+M(P)+'. كم ضريبة سنة 2029؟',
+ o:[M(tax),M(x/10),'لا شيء، لأن رصيد الخسارة يغطي معظم الربح',M((P-U)/10)],
+ ex:'تُرحَّل الخسارة <b>لمدة لا تتجاوز 5 سنوات تبدأ بعد نهاية سنة الخسارة</b>، أي من 2024 حتى 2028. فالرصيد غير المستخدم ('+F(rem)+') يسقط ولا يُخصم في 2029، والضريبة = '+F(P)+' × 10% = <b>'+M(tax)+'</b>. أما '+M(x/10)+' فناتج خصم الرصيد المنتهي ('+F(P)+' − '+F(rem)+')، وهو خطأ.'};}),
+T('3t12','calc','M2','الوحدة 2.1 · البند 2.3 (المنشأة الدائمة بتقديم الخدمات) والبند 2.5.2',function(){
+ var d=R(190,260),V=R(10,40)*500000,Cs=Math.round(V*R(55,80)/100/50000)*50000,tax=(V-Cs)/10;
+ return {q:'شركة استشارات أجنبية أرسلت فريقها إلى قطر لتنفيذ مشروع لعميل محلي، وبقي الفريق '+d+' يوماً خلال 12 شهراً. إيرادات المشروع '+M(V)+'، ومصاريفه المرتبطة المقبولة ضريبياً '+M(Cs)+'، ولا توجد اتفاقية. ما الضريبة المستحقة في قطر؟',
+ o:['ضريبة دخل '+M(tax),'استقطاع '+M(V*0.05)+' فقط','ضريبة دخل '+M(V/10),'لا شيء، لأنها شركة غير مقيمة'],
+ ex:'تقديم الخدمات داخل الدولة لمدة <b>تتجاوز 183 يوماً خلال 12 شهراً</b> يكوّن منشأة دائمة، فيخضع <b>صافي</b> الربح لضريبة الدخل 10%: ('+F(V)+' − '+F(Cs)+') × 10% = <b>'+M(tax)+'</b>. فلا يقتصر الأمر على استقطاع 5% من الإجمالي، ولا تُحسب الضريبة على الإيرادات قبل خصم المصاريف.'};}),
+T('3t13','calc','M2','الوحدة 2.1 · البند 5.3.2 وجدول إعفاءات المادة 4؛ الوحدة 1 · البند 5.2.3',function(){
+ var q=pick([51,60,65,70,75]),f=100-q,P=R(4,20)*500000,X=R(2,12)*50000,b=P+X,tax=b*f/100*0.1;
+ return {q:'شركة في الدوحة يملكها مواطن قطري بنسبة '+q+'% وشريك أجنبي من خارج دول مجلس التعاون بنسبة '+f+'%. صافي ربحها المحاسبي '+M(P)+'، وقد خُصمت ضمنه مصاريف شخصية للشركاء قدرها '+M(X)+'، ولا توجد تعديلات أخرى. كم ضريبة الدخل المستحقة؟',
+ o:[M(tax),M(P*f/100*0.1),M(b/10),M(b*q/100*0.1)],
+ ex:'أولاً يُعدّل الربح: المصاريف الشخصية مرفوضة فتُضاف: '+F(P)+' + '+F(X)+' = '+F(b)+'. ثانياً تُحسب الضريبة على <b>حصة الشريك غير القطري</b> فقط لأن حصة القطري معفاة: '+F(b)+' × '+f+'% × 10% = <b>'+M(tax)+'</b>.'};}),
+T('3t14','calc','M2','الوحدة 2.1 · البندان 3.5 و3.6 (مبدأ الاستحقاق وملاحظة IFRS 15)',function(){
+ var V=R(10,40)*2000000,p1=pick([20,25,30,35]),p2=p1+pick([25,30,35,40]),rev=V*(p2-p1)/100;
+ return {q:'عقد إنشاء بقيمة '+M(V)+' لمدة ثلاث سنوات. بلغت نسبة الإنجاز التراكمية '+p1+'% في نهاية السنة الأولى و'+p2+'% في نهاية السنة الثانية. ما الإيراد الذي يخص السنة الثانية وفق مبدأ الاستحقاق؟',
+ o:[M(rev),M(V*p2/100),M(V/3),M(V*p1/100)],
+ ex:'الإيراد يتبع الأعمال المنفذة <b>خلال السنة</b>: النسبة التراكمية '+p2+'% ناقص ما اعتُرف به في السنة الأولى '+p1+'% = '+(p2-p1)+'%، و'+(p2-p1)+'% × '+F(V)+' = <b>'+M(rev)+'</b>. واستخدام النسبة التراكمية '+p2+'% يكرر إيراد السنة الأولى، والثلث يفترض إنجازاً متساوياً.'};}),
+T('3t9','calc','M2','الوحدة 2.1 · البند 5.3 (المادة 8 بند 1 من القانون) والبند 4.3',function(){
+ var P=R(10,30)*1000000,E=R(2,10)*500000,X=R(2,10)*100000,base=P-E+X,tax=base/10;
+ return {q:'صافي الربح المحاسبي لشركة '+M(P)+'، ويتضمن إيراد استثمار معفى قدره '+M(E)+'، وقد خُصمت ضمن المصروفات '+M(X)+' مصاريف مرتبطة مباشرة بهذا الإيراد المعفى. لا توجد تعديلات أخرى. كم ضريبة الدخل المستحقة؟',
+ o:[M(tax),M((P-E)/10),M(P/10),M((P+X)/10)],
+ ex:'يُستبعد الإيراد المعفى (−'+F(E)+')، ولا يجوز خصم <b>ما أُنفق لتحقيق دخل معفى</b> فيُضاف '+F(X)+': الوعاء = '+F(P)+' − '+F(E)+' + '+F(X)+' = '+F(base)+'، والضريبة = <b>'+M(tax)+'</b>.'};}),
+T('3t10','calc','M2','الوحدة 2.1 · البند 5.5.4 (معادلة الربح الضريبي)',function(){
+ var C=R(8,30)*1000000,Tx=Math.round(C*R(30,50)/100/100000)*100000,A=Tx+R(2,10)*500000;
+ if(A>=C)return null;
+ var Sp=(C-Tx)+R(1,8)*500000,ans=A-Tx;
+ return {q:'باعت شركة آلة تكلفتها '+M(C)+' بسعر '+M(Sp)+'. الإهلاك المحاسبي المتراكم '+M(A)+'، والإهلاك المقبول ضريبياً المتراكم '+M(Tx)+'. بكم يزيد الربح المحاسبي من البيع عن الربح الضريبي؟',
+ o:[M(ans),M(A),M(Tx),M(Sp-(C-Tx))],
+ ex:'القيمة الدفترية = '+F(C)+' − '+F(A)+' = '+F(C-A)+'، والقيمة الضريبية = '+F(C)+' − '+F(Tx)+' = '+F(C-Tx)+'. الربح المحاسبي = '+F(Sp-(C-A))+'، والربح الضريبي = '+F(Sp-(C-Tx))+'. الفرق = '+F(A)+' − '+F(Tx)+' = <b>'+M(ans)+'</b>، لأن الإهلاك الضريبي كان أقل فبقيت القيمة الضريبية أعلى.'};}),
+T('3t11','calc','M2','الوحدة 2.1 · البند 1.6 (المادة 9 بند 2 من القانون والمادتان 21 و23 من اللائحة)',function(){
+ var Ro=R(10,60)*10000,Co=R(5,40)*10000,Se=R(20,80)*10000,Fr=R(5,30)*10000,w=(Ro+Co)*0.05;
+ return {q:'دفعت شركة قطرية خلال الشهر المبالغ التالية (بالريال):',
+ d:[['إتاوات لشركة برمجيات غير مقيمة ليس لها منشأة دائمة',F(Ro)],['عمولة لوكيل تجاري غير مقيم ليس له منشأة دائمة',F(Co)],['أتعاب خدمات لشركة أجنبية لها منشأة دائمة وبطاقة ضريبية في قطر',F(Se)],['أجور شحن بضائع لشركة شحن أجنبية',F(Fr)]],
+ q2:'كم إجمالي ضريبة الاستقطاع الواجب توريدها عن هذا الشهر (لا توجد اتفاقيات)؟',
+ o:[M(w),M((Ro+Co+Se+Fr)*0.05),M((Ro+Co+Fr)*0.05),M(Ro*0.05)],
+ ex:'تخضع <b>الإتاوات والعمولات</b> لغير مقيم دون منشأة دائمة لاستقطاع 5%. ولا يُستقطع من المدفوعات لمن لديه <b>بطاقة ضريبية</b> كالمنشأة الدائمة (المادة 23)، ولا تُعد <b>أجور الشحن</b> من الخدمات الخاضعة (المادة 21). المجموع = 5% × ('+F(Ro)+' + '+F(Co)+') = <b>'+M(w)+'</b>.'};})
+];
+
+var LEVELS=[
+ {n:1,name:'المستوى الأول',tag:'أساسي',desc:'التعاريف الأساسية وأنواع الضرائب والنسب، وحسابات بسيطة من خطوة واحدة.',bank:B1,quota:{calc:4,concept:6,class:5}},
+ {n:2,name:'المستوى الثاني',tag:'متوسط',desc:'تطبيق القواعد على حالات عملية، وتصنيف المعاملات، وحسابات من خطوتين.',bank:B2,quota:{calc:4,concept:6,class:5}},
+ {n:3,name:'المستوى الثالث',tag:'متقدم',desc:'حالات مركّبة، وحساب الوعاء الضريبي بعدة تعديلات، والتمييز بين المعالجات المتقاربة.',bank:B3,quota:{calc:7,concept:3,class:5}}
+];
+
+/* ================= GUIDE ================= */
+var FOCUS=[
+ ['ابدأ أي حالة بخمس خطوات ثابتة','هل يوجد دخل أو معاملة خاضعة في قطر؟ ثم صفة المكلف (مقيم، غير مقيم، منشأة دائمة)، ثم نوع الضريبة، ثم تطبيق القاعدة على الوقائع، ثم متطلبات الامتثال.','شركة أجنبية صمّمت تطبيقاً لبنك قطري من مكتبها في الخارج: اسأل أولاً هل الدخل مرتبط بقطر، ثم هل لها منشأة دائمة، ثم هل الدفعة تخضع للاستقطاع.'],
+ ['الأرقام التي لا تُنسى',[['10%','المعدل العام لضريبة الدخل'],['35%','حد أدنى للعمليات البترولية'],['15%','حد أدنى للركيزة الثانية'],['5%','الاستقطاع على الإجمالي'],['183+ يوماً','للإقامة، وللخدمات خلال 12 شهراً'],['6+ أشهر','موقع بناء أو تركيب = منشأة دائمة'],['قبل يوم 16','توريد الاستقطاع عن الشهر السابق'],['30 يوماً','إقرار الأرباح الرأسمالية'],['5 سنوات','ترحيل الخسائر بعد سنة الخسارة'],['3%','حد خصم التبرعات'],['2% أو 500 ألف','حد الضيافة، أيهما أعلى'],['200 ألف','سقف دخل الحِرف المعفاة'],['70%','حد النجاح في اختبار الشهادة']],'دخل خاضع مليون ريال × 10% = 100,000 ضريبة. ودفعة إتاوات 100,000 لغير مقيم × 5% = 5,000 استقطاع.'],
+ ['الإقامة: يكفي معيار واحد','للفرد: مسكن دائم، أو أكثر من 183 يوماً، أو الجنسية القطرية. وللكيان: مكان التأسيس أو الإدارة الفعلية.','موظف يستأجر شقة بعقد سنوي في الدوحة ويسافر كثيراً يبقى مقيماً بسبب المسكن الدائم وحده.'],
+ ['المنشأة الدائمة تغيّر كل شيء','وجودها يعني ضريبة دخل 10% على صافي الربح مع تسجيل وإقرار. وبدونها تخضع بعض المدفوعات لغير المقيم لاستقطاع 5% على الإجمالي.','شركة تركيب بقيت 8 أشهر في قطر: منشأة دائمة. ومصمم أجنبي أرسل تصميماً بالبريد دون حضور: لا منشأة، ويُدرس الاستقطاع.'],
+ ['الجوهر قبل الشكل','مكان توقيع العقد أو إصدار الفاتورة أو الحساب البنكي لا يحسم. العبرة بمكان تنفيذ العمل والانتفاع به والواقع الاقتصادي.','فاتورة صادرة من دبي لأعمال نفذها فريق في الدوحة: الدخل مرتبط بقطر رغم مكان الفاتورة.'],
+ ['الربح المحاسبي نقطة بداية فقط','الوعاء = الربح المحاسبي + المصاريف المرفوضة ± فروقات الإهلاك والتوقيت − الإيرادات المعفاة − الخسائر المرحّلة، ثم × 10%.','مطعم ربحه في الدفاتر 320,000، وخصم غرامة 30,000 ومخصصاً تقديرياً 50,000: الوعاء 400,000 والضريبة 40,000.'],
+ ['شروط قبول المصروف (المادة 7) وقائمة الرفض (المادة 8)','يُقبل المصروف إذا كان لازماً للدخل، وفعلياً وموثقاً، ولا يزيد قيمة الأصول، ويخص السنة. ويُرفض: الغرامات، والمصاريف الشخصية، ومصاريف الدخل المعفى، وما فوق الحدود.','رواتب الموظفين بالعقود مقبولة. أما مخالفات المرور على سيارات الشركة والسفر العائلي للشريك فمرفوضة.'],
+ ['المعفى ليس غير الخاضع','غير الخاضع خارج النطاق أصلاً. والمعفى داخل النطاق لكن بنص صريح، ويحتاج: نصاً قانونياً، وشروطاً مستمرة، وإثباتاً بالمستندات.','فوائد سندات حكومية: معفاة. وخدمة لعميل في لندن نُفذت كلها في لندن: غير خاضعة.'],
+ ['الأرباح الرأسمالية من القيمة الضريبية','الربح الضريبي = سعر البيع − (التكلفة − الإهلاك المقبول ضريبياً). وإعادة التقييم وحدها لا تُنشئ ربحاً خاضعاً.','آلة بيعت بـ 30 مليوناً وقيمتها الضريبية 22 مليوناً: الربح الخاضع 8 ملايين، حتى لو كان الربح الدفتري 12 مليوناً.'],
+ ['المخصص والمستحق والاحتياطي','المخصص تقدير لا يُخصم غالباً عند تكوينه (عدا مخصص الديون للبنوك وشركات التمويل). والمستحق مصروف تحقق ولم يُدفع ويُقبل غالباً. والاحتياطي تجنيب من الأرباح وليس مصروفاً أبداً.','توقّع ألا يسدد عميل ديناً = مخصص. فاتورة كهرباء لم تُدفع = مستحق. مبلغ مجنّب للتوسع = احتياطي.'],
+ ['التخطيط مشروع والتهرب مخالفة','التخطيط يحتاج نصاً قانونياً ووقائع حقيقية ومستندات. والتهرب إخفاء أو بيانات غير صحيحة أو معاملات وهمية.','دراسة اتفاقية الازدواج قبل التعاقد: تخطيط. وفاتورة استشارات وهمية من شركة مرتبطة: تهرب.'],
+ ['الامتثال سلسلة مترابطة والتقييم الذاتي مسؤوليتك','التسجيل، ثم الاحتفاظ بالسجلات، ثم الإقرار، ثم السداد، ثم الفحص. والمكلف يحسب ضريبته بنفسه ولا ينتظر طلب الهيئة.','شركة لم تقدّم إقرارها لأن الهيئة «لم تطلبه»: مخالفة، وقد تُقدّر عليها الضريبة وتُفرض غرامات.']
+];
+var TERMS=[
+ ['الضريبة','M1','التزام مالي يُفرض بقوة القانون دون مقابل مباشر محدد، لتمويل النفقات العامة وتحقيق المصلحة العامة.','شركة تدفع ضريبة دخل على أرباحها حتى لو لم تستفد مباشرة من خدمة حكومية في تلك السنة.'],
+ ['مبدأ قانونية الضريبة','M1','لا يجوز فرض ضريبة أو تعديلها أو إلغاؤها إلا بقانون، وقد أكدته المادة 43 من الدستور الدائم.','لا يحق لجهة حكومية فرض ضريبة جديدة بقرار إداري.'],
+ ['الواقعة المنشئة','M1','الحدث أو النشاط الذي ينشئ الالتزام الضريبي.','تحقيق ربح من عقد في الدوحة، أو بيع سلعة انتقائية.'],
+ ['الوعاء الضريبي','M1','القيمة التي تُحسب عليها الضريبة ويُطبق عليها سعرها.','صافي ربح خاضع قدره 2,000,000 ريال هو الوعاء.'],
+ ['سعر الضريبة','M1','النسبة أو المبلغ المحدد الذي يُطبَّق على الوعاء.','10% × 2,000,000 = 200,000 ريال ضريبة.'],
+ ['المكلّف','M1','كل شخص طبيعي أو معنوي أو كيان ملزم بدفع الضريبة أو القيام بواجباتها كالتسجيل والإقرار.','شركة أجنبية لها منشأة دائمة ملزمة بالتسجيل وتقديم الإقرار.'],
+ ['النشاط','M1','مهنة أو حرفة أو تجارة أو صناعة أو مضاربة أو أي عمل يستهدف الربح أو الدخل، بما فيه استغلال الأملاك.','تأجير عقار مملوك بقصد تحقيق دخل.'],
+ ['الضريبة المباشرة','M1','تُفرض على الدخل أو الربح ويتحمّلها صاحبه بنفسه.','ضريبة الدخل على أرباح شركة مقاولات.'],
+ ['الضريبة غير المباشرة','M1','تُفرض على السلع والخدمات ويحصّلها البائع ويتحمّلها المستهلك النهائي.','الضريبة الانتقائية تُضاف إلى سعر علبة مشروب الطاقة.'],
+ ['ضريبة القيمة المضافة','M1','ضريبة غير مباشرة على توريد السلع والخدمات، غير مطبقة حالياً في قطر ومتوقعة بنسبة 5%. ضريبة المخرجات تُحصَّل على المبيعات، وضريبة المدخلات تُخصم على المشتريات.','متجر يحصّل الضريبة على مبيعاته ويخصم منها ما دفعه على مشترياته، ويورّد الفرق.'],
+ ['التقييم الذاتي','M1','المكلف يحدد خضوعه ويحسب الضريبة ويقدّم الإقرار ويسدد، والهيئة تراقب لاحقاً بالفحص.','شركة تقدّم إقرارها في موعده دون انتظار إشعار من الهيئة.'],
+ ['الهيئة العامة للضرائب','M1','أُنشئت بالقرار الأميري رقم 77 لسنة 2018، وتتبع وزير المالية، وتتولى التسجيل والإقرارات والفحص والتحصيل والجزاءات.','التسجيل وتقديم الإقرارات والسداد عبر بوابة «ضريبة».'],
+ ['مبدأ إقليمية الضريبة','M1','الضريبة تُفرض على الدخل المتحقق من مصادر داخل قطر بغض النظر عن إقامة المكلف في بعض الحالات.','شركة أجنبية غير مقيمة تخضع على أرباح مشروع نفذته في قطر.'],
+ ['التخطيط الضريبي','M1','تنظيم مشروع للأعمال يدير العبء الضريبي بكفاءة، ويستند إلى نص قانوني ووقائع حقيقية ومستندات.','دراسة ما إذا كانت الخدمة ستُنفذ داخل قطر أو خارجها قبل توقيع العقد.'],
+ ['إساءة استخدام القانون','M1','معاملة صحيحة شكلاً لكنها تخالف روح القانون وغايته لتحقيق ميزة غير مقصودة.','تقسيم عقد واحد إلى عقود قصيرة متتالية لتجنب المنشأة الدائمة.'],
+ ['التهرب الضريبي','M1','مخالفة صريحة للقانون بإخفاء معلومات أو تقديم بيانات غير صحيحة أو معاملات وهمية.','عدم إدراج جزء من الإيرادات في الإقرار.'],
+ ['الجوهر الاقتصادي','M1','تقييم المعاملة وفق حقيقتها الاقتصادية لا شكلها القانوني فقط.','عقد يقول إن الخدمة «من الخارج» بينما الفريق يعمل يومياً في الدوحة.'],
+ ['الامتثال الضريبي','M1','التزام المكلف بالمتطلبات الشكلية (التسجيل، الإقرار) والموضوعية (الحساب الصحيح). مراحله: تسجيل، سجلات، إقرار، سداد، فحص.','شركة تحتفظ بالفواتير والعقود لتثبت مصاريفها عند الفحص.'],
+ ['المقيم','M2','فرد له مسكن دائم أو أقام أكثر من 183 يوماً أو قطري الجنسية، أو كيان مؤسس في قطر أو يُدار منها فعلياً. يكفي شرط واحد.','مستشار بريطاني يستأجر شقة سنوية وأمضى 210 أيام في قطر: مقيم.'],
+ ['مكان الإدارة الفعلية','M2','المكان الذي تُتخذ فيه القرارات الاستراتيجية والتشغيلية الرئيسية، لا المكان المكتوب في وثائق التأسيس.','شركة مسجلة في لندن يجتمع مجلس إدارة مشروعها في الدوحة: مقيمة في قطر.'],
+ ['المنشأة الدائمة','M2','مكان ثابت للأعمال يباشر منه المشروع نشاطه كلياً أو جزئياً. وتتحقق أيضاً ببناء أو تركيب أكثر من 6 أشهر، أو خدمات أكثر من 183 يوماً خلال 12 شهراً.','شركة إنشاءات أجنبية تبني جسراً في قطر لمدة 24 شهراً.'],
+ ['النشاط التحضيري أو المساعد','M2','نشاط داعم لا يكوّن منشأة دائمة، كالتخزين أو العرض أو شراء البضائع أو جمع المعلومات.','مستودع في قطر تخزّن فيه شركة أجنبية بضائعها فقط.'],
+ ['ضريبة الاستقطاع من المنبع','M2','5% يقتطعها الدافع في قطر من إجمالي مدفوعات محددة لغير مقيم دون منشأة دائمة، ويورّدها قبل اليوم 16 من الشهر التالي.','فاتورة 100,000 لمدرب أجنبي قدّم ورشة في الدوحة: 5,000 للهيئة و95,000 للمدرب.'],
+ ['الإتاوات','M2','مدفوعات مقابل استخدام حق: برنامج، علامة تجارية، براءة اختراع، تصميم، معدات، أو خبرة.','رسوم ترخيص سنوية لبرنامج محاسبي تملكه شركة أجنبية.'],
+ ['الدخل الإجمالي والصافي والخاضع','M2','الإجمالي مجموع الدخول، والصافي بعد الخصومات المسموح بها، والخاضع بعد خصم الخسائر.','إجمالي 10 ملايين − خصومات 6 ملايين = صافي 4 ملايين − خسائر مليون = خاضع 3 ملايين.'],
+ ['مبدأ الاستحقاق','M2','يُسجَّل الإيراد والمصروف في الفترة التي يخصانها حسب الإنجاز، لا عند قبض النقد أو دفعه.','دفعة مقدمة 25 مليوناً لعقد لم يُنجز منه إلا 20%: لا تُعد كلها دخل السنة.'],
+ ['الأرباح الرأسمالية','M2','الربح من بيع أصل أو التصرف فيه، ويُحسب ضريبياً من القيمة الضريبية المتبقية، ويُقرّ عنه خلال 30 يوماً.','بيع معدات بـ 30 مليوناً وقيمتها الضريبية 22 مليوناً: ربح خاضع 8 ملايين.'],
+ ['الدخل المعفى','M2','دخل داخل نطاق الضريبة أعفاه القانون بنص صريح وشروط.','فوائد سندات حكومية، أو دخل صياد سمك في الوكرة.'],
+ ['الدخل غير الخاضع','M2','دخل خارج نطاق الضريبة من الأصل لعدم ارتباطه بقطر أو لأنه ليس دخلاً.','قرض بنكي استلمته الشركة، أو خدمة نُفذت كلها في الخارج لعميل أجنبي.'],
+ ['اتفاقية تجنب الازدواج الضريبي','M2','اتفاقية بين دولتين تحدد من يفرض الضريبة وبأي نسبة. لا تعني إعفاءً تلقائياً، وتحتاج شهادة إقامة ضريبية، وتُطبق غالباً بآلية «ادفع ثم استرد».','تُستقطع 5% كاملة، ثم يسترد المستفيد الفرق بعد تقديم شهادة إقامته.'],
+ ['الربح المحاسبي','M2','الإيرادات ناقص المصروفات وفق المعايير المحاسبية ومبدأ الاستحقاق، ويظهر في قائمة الأرباح والخسائر. وهو نقطة البداية للوعاء.','مطعم مبيعاته 2,000,000 ومصروفاته 1,680,000: ربحه المحاسبي 320,000.'],
+ ['التسوية الضريبية','M2','الجدول الذي ينقلك من الربح المحاسبي إلى الوعاء بإضافة غير المقبول واستبعاد المعفى وخصم الخسائر.','ربح 19 مليوناً + تعديلات 17 مليوناً − خسائر 8 ملايين = وعاء 28 مليوناً.'],
+ ['المصاريف القابلة للخصم','M2','لازمة لتحقيق الدخل، ومتحمَّلة فعلاً، وموثقة، ولا تزيد قيمة الأصول، وتخص السنة (المادة 7).','رواتب موظفين وإيجار مكتب بعقود وفواتير.'],
+ ['المصاريف غير القابلة للخصم','M2','ما يمنعه القانون (المادة 8): الغرامات، والمصاريف الشخصية، ومصاريف الدخل المعفى، والضيافة والتبرعات فوق الحدود.','مخالفات مرورية على سيارات الشركة، أو سفر عائلي لأحد الشركاء.'],
+ ['المخصص والمستحق والاحتياطي','M2','المخصص التزام محتمل لا يُخصم غالباً، والمستحق مصروف تحقق ولم يُدفع ويُقبل غالباً، والاحتياطي تجنيب من الأرباح ليس مصروفاً.','مخصص ديون لعميل متعثر؛ رواتب ديسمبر المستحقة؛ احتياطي توسعات.'],
+ ['الإهلاك المحاسبي والضريبي','M2','توزيع تكلفة الأصل على عمره. وإذا زاد الإهلاك المحاسبي على المقبول ضريبياً يُضاف الفرق للوعاء.','إهلاك محاسبي 6 ملايين ومقبول 4 ملايين: يُضاف مليونان.'],
+ ['الخسائر المرحّلة','M2','خسائر ضريبية تُخصم من أرباح السنوات الخمس التالية لسنة الخسارة، ولا تُرحَّل خسائر الدخل المعفى.','خسارة 2024 يمكن استخدامها حتى 2029، وتسقط بعدها.'],
+ ['الأطراف المرتبطة والمنافسة الكاملة','M2','شركات تجمعها ملكية أو سيطرة مشتركة. تُسعَّر معاملاتها كأنها بين مستقلين، وللهيئة وفق المادة 33 تطبيق سعر السوق وإعادة التكييف.','قرض من الشركة الأم بفائدة 14% وسعر السوق 6%: قد يُرفض الفرق.']
+];
+
+/* ================= state ================= */
+var KEY='tax-quiz-3levels-v2';
+var store={done:{},seen:{},last:{}};
+try{var raw=localStorage.getItem(KEY); if(raw){var p=JSON.parse(raw); if(p&&typeof p==='object'){store.done=p.done||{};store.seen=p.seen||{};store.last=p.last||{};}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+var cur=null, from='home';
+var $=function(id){return document.getElementById(id);};
+var L=['أ','ب','ج','د'];
+function show(id){['home','guide','quiz','result'].forEach(function(s){$(s).hidden=(s!==id);}); window.scrollTo(0,0);}
+function unlocked(n){return true;}
+
+function make(item){
+ if(!item.gen) return {id:item.id,t:item.t,s:item.s,q:item.q,o:item.o.slice(),a:0,ex:item.ex,ref:item.ref};
+ for(var k=0;k<40;k++){
+  var g=item.gen(); if(!g) continue;
+  var ok=g.o.length===4&&g.o.every(function(v,i,a){return a.indexOf(v)===i;});
+  if(ok) return {id:item.id,t:item.t,s:item.s,q:g.q,d:g.d,q2:g.q2,o:g.o,a:0,ex:g.ex,ref:item.ref};
+ }
+ return null;
+}
+function draw(n){
+ var lv=LEVELS[n-1], seen=store.seen[n]||{}, last=store.last[n]||[], chosen=[];
+ Object.keys(lv.quota).forEach(function(t){
+  var pool=lv.bank.filter(function(b){return b.t===t;}).map(function(b){return {b:b,k:(last.indexOf(b.id)>-1?1000:0)+(seen[b.id]||0)*10+Math.random()*9};});
+  pool.sort(function(x,y){return x.k-y.k;});
+  var need=lv.quota[t],i=0;
+  while(need>0&&i<pool.length){var m=make(pool[i].b); if(m){chosen.push(m);need--;} i++;}
+ });
+ var ord=shuffle(chosen.length), qs=ord.map(function(i){return chosen[i];});
+ store.seen[n]=seen; qs.forEach(function(q){seen[q.id]=(seen[q.id]||0)+1;});
+ store.last[n]=qs.map(function(q){return q.id;}); save();
+ return qs;
+}
+
+/* ---------- home ---------- */
+function renderHome(){
+ var box=$('levels'); box.innerHTML='';
+ LEVELS.forEach(function(lv){
+  var open=unlocked(lv.n), d=store.done[lv.n];
+  var el=document.createElement('div'); el.className='lv'+(open?'':' locked');
+  var st=d?'<span class="st done num">'+d.score+'/15</span>':(open?'':'<span class="st lock">مقفل</span>');
+  var btn=open?'<button class="btn'+(d?'':' primary')+'" type="button">'+(d?'إعادة':'ابدأ')+'</button>':'';
+  el.innerHTML='<span class="n">'+lv.n+'</span><div class="info"><h2>'+lv.name+'<small>'+lv.tag+'</small></h2><p>'+lv.desc+'</p></div><div class="act">'+st+btn+'</div>';
+  if(open) el.querySelector('button').addEventListener('click',function(){start(lv.n);});
+  box.appendChild(el);
+ });
+}
+
+/* ---------- guide ---------- */
+var gUnit='all';
+function renderGuide(){
+ $('focus').innerHTML=FOCUS.map(function(f){var body=Array.isArray(f[1])?'<div class="nums">'+f[1].map(function(n){return '<div><b>'+esc(n[0])+'</b><span>'+esc(n[1])+'</span></div>';}).join('')+'</div>':'<p class="rule">'+esc(f[1])+'</p>';return '<li><h3>'+esc(f[0])+'</h3>'+body+'<p class="eg">'+esc(f[2])+'</p></li>';}).join('');
+ renderTerms();
+}
+function norm(s){return s.replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').toLowerCase().trim();}
+function renderTerms(){
+ var v=norm($('g-q').value||''), n=0;
+ var html=TERMS.filter(function(t){return (gUnit==='all'||t[1]===gUnit)&&(!v||norm(t[0]+' '+t[2]).indexOf(v)>-1);}).map(function(t){n++;return '<article class="term"><div class="top"><h3>'+esc(t[0])+'</h3><span class="tt src">'+SRC[t[1]]+'</span></div><p>'+esc(t[2])+'</p><p class="eg">'+esc(t[3])+'</p></article>';}).join('');
+ $('terms').innerHTML=html; $('g-empty').hidden=n>0;
+}
+function openGuide(src){from=src; show('guide');}
+$('open-guide').addEventListener('click',function(){openGuide('home');});
+$('g-back').addEventListener('click',function(){if(from==='result')show('result');else{renderHome();show('home');}});
+function tab(focus){$('tab-focus').setAttribute('aria-pressed',String(focus));$('tab-terms').setAttribute('aria-pressed',String(!focus));$('pane-focus').hidden=!focus;$('pane-terms').hidden=focus;}
+$('tab-focus').addEventListener('click',function(){tab(true);});
+$('tab-terms').addEventListener('click',function(){tab(false);});
+$('g-q').addEventListener('input',renderTerms);
+[].forEach.call(document.querySelectorAll('[data-u]'),function(b){b.addEventListener('click',function(){gUnit=b.getAttribute('data-u');[].forEach.call(document.querySelectorAll('[data-u]'),function(x){x.setAttribute('aria-pressed',String(x===b));});renderTerms();});});
+
+/* ---------- quiz ---------- */
+function stemHTML(q){var s=esc(q.q); if(q.d){s+='<table class="data">'+q.d.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>';}).join('')+'</table><div style="margin-top:8px">'+esc(q.q2)+'</div>';} return s;}
+function start(n){
+ var lv=LEVELS[n-1], qs=draw(n);
+ cur={n:n,qs:qs,order:qs.map(function(q){return shuffle(q.o.length);}),ans:qs.map(function(){return null;}),i:0};
+ $('q-title').innerHTML=lv.name+'<small>'+lv.tag+'</small>';
+ var sh=$('q-sheet'); sh.innerHTML='';
+ qs.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.textContent=i+1;b.setAttribute('aria-label','السؤال '+(i+1));b.addEventListener('click',function(){cur.i=i;renderQ();});sh.appendChild(b);});
+ show('quiz'); renderQ();
+}
+function answered(){return cur.ans.filter(function(x){return x!==null;}).length;}
+function renderQ(){
+ var q=cur.qs[cur.i], ord=cur.order[cur.i], N=cur.qs.length;
+ $('q-meta').innerHTML='<span class="qn">السؤال '+(cur.i+1)+' من '+N+'</span><span class="tt '+q.t+'">'+TYPE[q.t]+'</span>';
+ $('q-stem').innerHTML=stemHTML(q);
+ var box=$('q-opts'); box.innerHTML='';
+ ord.forEach(function(oi,pos){
+  var b=document.createElement('button'); b.type='button'; b.className='opt'; b.setAttribute('role','radio');
+  b.setAttribute('aria-checked',String(cur.ans[cur.i]===oi));
+  b.innerHTML='<span class="l">'+L[pos]+'</span><span>'+esc(q.o[oi])+'</span>';
+  b.addEventListener('click',function(){cur.ans[cur.i]=oi; renderQ();});
+  box.appendChild(b);
+ });
+ [].forEach.call($('q-sheet').children,function(b,i){b.classList.toggle('ans',cur.ans[i]!==null);b.classList.toggle('cur',i===cur.i);});
+ var a=answered();
+ $('q-bar').style.width=(a/N*100)+'%';
+ $('q-prev').disabled=cur.i===0;
+ $('q-next').disabled=cur.i===N-1;
+ $('q-finish').disabled=a<N;
+ $('q-hint').textContent=a+' / '+N;
+}
+$('q-prev').addEventListener('click',function(){if(cur.i>0){cur.i--;renderQ();}});
+$('q-next').addEventListener('click',function(){if(cur.i<cur.qs.length-1){cur.i++;renderQ();}});
+$('q-home').addEventListener('click',function(){renderHome();show('home');});
+$('q-finish').addEventListener('click',function(){if(answered()===cur.qs.length) finish();});
+
+/* ---------- result ---------- */
+function finish(){
+ var lv=LEVELS[cur.n-1], N=cur.qs.length, score=0, by={calc:[0,0],concept:[0,0],class:[0,0]};
+ cur.qs.forEach(function(q,i){var ok=cur.ans[i]===q.a; if(ok)score++; by[q.t][1]++; if(ok)by[q.t][0]++;});
+ store.done[cur.n]={score:score}; save();
+ var pct=Math.round(score/N*100), pass=pct>=70;
+ $('r-score').innerHTML='<div class="ring" style="--p:'+pct+'"><div><b class="num">'+score+'/'+N+'</b><small class="num">'+pct+'%</small></div></div>'+
+  '<h2>'+lv.name+'</h2>'+
+  '<span class="verdict '+(pass?'pass':'fail')+'">'+(pass?'ناجح':'غير ناجح (أقل من 70%)')+'</span>'+
+  '<div class="bytype">'+Object.keys(by).filter(function(k){return by[k][1];}).map(function(k){return '<span>'+TYPE[k]+': <b class="num">'+by[k][0]+'/'+by[k][1]+'</b></span>';}).join('')+'</div>';
+ var act=$('r-actions'); act.innerHTML='';
+ function addBtn(txt,cls,fn){var b=document.createElement('button');b.type='button';b.className='btn'+(cls?' '+cls:'');b.textContent=txt;b.addEventListener('click',fn);act.appendChild(b);}
+ if(cur.n<3) addBtn('المستوى التالي','primary',function(){start(cur.n+1);});
+ addBtn('إعادة','',function(){start(cur.n);});
+ addBtn('الدليل','',function(){openGuide('result');});
+ addBtn('الرئيسية','',function(){renderHome();show('home');});
+ var fin=$('r-final');
+ if(cur.n===3&&store.done[1]&&store.done[2]){
+  var tot=0, rows=LEVELS.map(function(l){var s=store.done[l.n].score;tot+=s;return '<tr><td>'+l.name+'</td><td>'+l.tag+'</td><td class="num">'+s+'/15</td><td class="num">'+Math.round(s/15*100)+'%</td></tr>';}).join('');
+  fin.innerHTML='<h3>المجموع</h3><table><thead><tr><th>المستوى</th><th>الصعوبة</th><th>آخر درجة</th><th>النسبة</th></tr></thead><tbody>'+rows+'<tr><td><b>المجموع</b></td><td></td><td class="num"><b>'+tot+'/45</b></td><td class="num"><b>'+Math.round(tot/45*100)+'%</b></td></tr></tbody></table>';
+  fin.hidden=false;
+ } else fin.hidden=true;
+ var list=$('r-list'); list.innerHTML='';
+ cur.qs.forEach(function(q,i){
+  var ok=cur.ans[i]===q.a, ord=cur.order[i], lt=function(oi){return L[ord.indexOf(oi)];};
+  var it=document.createElement('article'); it.className='ri'+(ok?'':' wrong'); it.setAttribute('data-ok',ok?'1':'0');
+  it.innerHTML='<div class="meta"><span class="qn">السؤال '+(i+1)+'</span><span class="mark '+(ok?'y':'n')+'">'+(ok?'إجابة صحيحة':'إجابة خاطئة')+'</span><span class="tt '+q.t+'">'+TYPE[q.t]+'</span><span class="tt src">'+SRC[q.s]+'</span></div>'+
+   '<div class="stem">'+stemHTML(q)+'</div>'+
+   '<div class="ans">'+(ok?'':'<div class="yours bad"><b>إجابتك ('+lt(cur.ans[i])+')</b><span>'+esc(q.o[cur.ans[i]])+'</span></div>')+
+   '<div class="right"><b>الإجابة الصحيحة ('+lt(q.a)+')</b><span>'+esc(q.o[q.a])+'</span></div></div>'+
+   '<div class="ex"><b class="h">الشرح: </b>'+q.ex+'</div><div class="ref">'+esc(q.ref)+'</div>';
+  list.appendChild(it);
+ });
+ $('r-wrong').checked=false; applyFilter();
+ show('result');
+}
+function applyFilter(){var only=$('r-wrong').checked;[].forEach.call($('r-list').children,function(c){c.hidden=only&&c.getAttribute('data-ok')==='1';});}
+$('r-wrong').addEventListener('change',applyFilter);
+
+$('reset').addEventListener('click',function(){store={done:{},seen:{},last:{}};save();renderHome();});
+renderGuide(); renderHome(); show('home');
+window.__QUIZ__={LEVELS:LEVELS,make:make,draw:draw,store:store};
+})();
+</script>
+
+</body>
+</html>
